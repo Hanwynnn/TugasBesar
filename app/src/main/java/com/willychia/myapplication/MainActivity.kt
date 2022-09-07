@@ -32,13 +32,10 @@ class MainActivity : AppCompatActivity() {
         val btnLogin: Button = findViewById(R.id.btnLogin)
 
         //Aksi btnClear ketika diklik
-        btnReg.setOnClickListener{//Mengosongkan Input
-            inputUsername.getEditText()?.setText("")
-            inputPassword.getEditText()?.setText("")
-
-            //Memunculkan Sncakbar
-            Snackbar.make(mainLayout, "Text Cleared Success", Snackbar.LENGTH_LONG).show()
-        }
+        btnReg.setOnClickListener (View.OnClickListener{//Mengosongkan Input
+            val intent = Intent(this, RegisActivity::class.java)
+            startActivity(intent)
+        })
 
         //Aksi btnLogin
         btnLogin.setOnClickListener (View.OnClickListener {
