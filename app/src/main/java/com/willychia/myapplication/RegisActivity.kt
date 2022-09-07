@@ -6,13 +6,14 @@ import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.textfield.TextInputLayout
 import android.content.Intent
-import android.view.View
 
 class RegisActivity : AppCompatActivity() {
     private lateinit var inputUsername: TextInputLayout
     private lateinit var inputPassword: TextInputLayout
     private lateinit var inputEmail: TextInputLayout
     private lateinit var inputNoTelp: TextInputLayout
+    private lateinit var btnReg: Button
+    private lateinit var btnLogin: Button
     private lateinit var regisLayout: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,15 +22,24 @@ class RegisActivity : AppCompatActivity() {
 
         setTitle("User Register")
 
-        inputUsername = findViewById(R.id.textInputLayoutUsername)
+        inputUsername = findViewById(R.id.textInputLayoutEmail)
         inputPassword = findViewById(R.id.textInputLayoutPassword)
         inputEmail = findViewById(R.id.textInputLayoutEmail)
         inputNoTelp = findViewById(R.id.textInputLayoutnoTelp)
-        regisLayout = findViewById(R.id.regisActivity)
-        val btnReg: Button = findViewById(R.id.btnReg)
-        val btnLogin: Button = findViewById(R.id.btnLogin)
+        btnReg = findViewById(R.id.btnReg)
+        btnLogin = findViewById(R.id.btnLogin)
 
-        btnReg.setOnClickListener {  }
+
+        btnReg.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            val mBundle = Bundle()
+
+            mBundle.putString("email", inputEmail.editText.toString())
+            mBundle.putString("password", inputPassword.editText.toString())
+            intent.putExtra("register", mBundle)
+
+            startActivity(intent)
+        }
 
         btnLogin.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)

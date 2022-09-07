@@ -12,9 +12,13 @@ import com.google.android.material.textfield.TextInputLayout
 class MainActivity : AppCompatActivity() {
     //Atribut yang dipakai
 
-    private lateinit var inputUsername: TextInputLayout
+    private lateinit var inputEmail: TextInputLayout
     private  lateinit var inputPassword: TextInputLayout
     private  lateinit var mainLayout: ConstraintLayout
+    lateinit var mBundle: Bundle
+
+    lateinit var vEmail: String
+    lateinit var vPassword: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         setTitle("User Login")
 
         // Hubungkan variabel dengan ciew di layoutnya
-        inputUsername = findViewById(R.id.textInputLayoutUsername)
+        inputEmail = findViewById(R.id.textInputLayoutEmail)
         inputPassword = findViewById(R.id.textInputLayoutPassword)
         mainLayout = findViewById(R.id.mainLayout)
         val btnReg: Button = findViewById(R.id.btnReg)
@@ -33,17 +37,20 @@ class MainActivity : AppCompatActivity() {
         btnReg.setOnClickListener (View.OnClickListener{//Mengosongkan Input
             val intent = Intent(this, RegisActivity::class.java)
             startActivity(intent)
+
+            getBundle()
+            setText()
         })
 
         //Aksi btnLogin
         btnLogin.setOnClickListener (View.OnClickListener {
             var checkLogin = false
-            val username: String = inputUsername.getEditText()?.getText().toString()
+            val username: String = inputEmail.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
             //Pengecekan apakah inputan kosong
             if(username.isEmpty()){
-                inputUsername.setError("Username must be filled with text")
+                inputEmail.setError("Username must be filled with text")
                 checkLogin = false
             }
 
@@ -60,6 +67,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(moveHome)
         })
 
+    }
 
+    fun getBundle(){
+        mBundle = intent.getBundleExtra("register")!!
+        vEmail = mBundle.getString("email")!!
+        vPassword = mBundle.getString("password")!!
+    }
+
+    fun setText(){
+        inputEmail = findViewById(R.id.textInputLayoutEmail)
+        inputEmail.editText.toString()
+        inputPassword = findViewById(R.id.textInputLayoutPassword)
+        inputPassword.editText.toString()
     }
 }

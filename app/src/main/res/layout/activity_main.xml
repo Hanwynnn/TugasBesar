@@ -41,11 +41,11 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutUsername"
+            android:id="@+id/textInputLayoutEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Username"
+            android:hint="Email"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_user_24"
             android:layout_marginBottom="8dp">
