@@ -31,9 +31,9 @@ class RegisActivity : AppCompatActivity() {
 
         btnReg.setOnClickListener {  }
 
-        btnLogin.setOnClickListener (View.OnClickListener{
+        btnLogin.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-        })
+        }
     }
 }

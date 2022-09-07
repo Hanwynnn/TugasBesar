@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 
 
@@ -31,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         val btnReg: Button = findViewById(R.id.btnReg)
         val btnLogin: Button = findViewById(R.id.btnLogin)
 
-        //Aksi btnClear ketika diklik
         btnReg.setOnClickListener (View.OnClickListener{//Mengosongkan Input
             val intent = Intent(this, RegisActivity::class.java)
             startActivity(intent)
