@@ -28,11 +28,11 @@ class MainActivity : AppCompatActivity() {
         inputUsername = findViewById(R.id.textInputLayoutUsername)
         inputPassword = findViewById(R.id.textInputLayoutPassword)
         mainLayout = findViewById(R.id.mainLayout)
-        val btnClear: Button = findViewById(R.id.btnClear)
+        val btnReg: Button = findViewById(R.id.btnReg)
         val btnLogin: Button = findViewById(R.id.btnLogin)
 
         //Aksi btnClear ketika diklik
-        btnClear.setOnClickListener{//Mengosongkan Input
+        btnReg.setOnClickListener{//Mengosongkan Input
             inputUsername.getEditText()?.setText("")
             inputPassword.getEditText()?.setText("")
 
