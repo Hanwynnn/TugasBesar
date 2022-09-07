@@ -21,7 +21,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Register"
         android:textColor="@color/black"
         style="@style/TextAppearance.MaterialComponents.Headline4"
@@ -108,7 +108,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/LinearLayout3"
         app:layout_constraintStart_toStartOf="@+id/LinearLayout3"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayout3">
