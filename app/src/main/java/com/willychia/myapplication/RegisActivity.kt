@@ -38,7 +38,7 @@ class RegisActivity : AppCompatActivity() {
 
             mBundle.putString("email", inputEmail.getEditText()?.toString())
             mBundle.putString("password", inputPassword.getEditText()?.toString())
-            intent.putExtra("register", mBundle)
+            intent.putExtras(mBundle)
 
             startActivity(intent)
         })

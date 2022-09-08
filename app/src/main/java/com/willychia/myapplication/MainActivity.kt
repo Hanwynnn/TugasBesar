@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisActivity::class.java)
             startActivity(intent)
 
-            getBundle()
             setText()
         })
 
@@ -72,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getBundle(){
-        mBundle = intent.getBundleExtra("register")!!
+        mBundle = getIntent().getExtras()!!
         vEmail = mBundle.getString("email")!!
         vPassword = mBundle.getString("password")!!
     }
