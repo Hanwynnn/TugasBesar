@@ -6,6 +6,8 @@ import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.textfield.TextInputLayout
 import android.content.Intent
+import android.view.View
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class RegisActivity : AppCompatActivity() {
     private lateinit var inputUsername: TextInputLayout
@@ -30,20 +32,22 @@ class RegisActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.btnLogin)
 
 
-        btnReg.setOnClickListener {
+        btnReg.setOnClickListener (View.OnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             val mBundle = Bundle()
 
-            mBundle.putString("email", inputEmail.getEditText().toString())
-            mBundle.putString("password", inputPassword.getEditText().toString())
+            mBundle.putString("email", inputEmail.getEditText()?.toString())
+            mBundle.putString("password", inputPassword.getEditText()?.toString())
             intent.putExtra("register", mBundle)
 
             startActivity(intent)
-        }
+        })
 
-        btnLogin.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+        btnLogin.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@RegisActivity, MainActivity::class.java)
             startActivity(intent)
-        }
+        })
+
+
     }
 }

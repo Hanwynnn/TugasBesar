@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             //Ganti Password dengan Kode kalian
+            getBundle()
             if (username == "admin" && password == "admin" || username == vEmail && password == vPassword) checkLogin = true
 
             if(!checkLogin)return@OnClickListener
