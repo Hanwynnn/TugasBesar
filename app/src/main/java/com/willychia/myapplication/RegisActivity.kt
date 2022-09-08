@@ -34,8 +34,8 @@ class RegisActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             val mBundle = Bundle()
 
-            mBundle.putString("email", inputEmail.editText.toString())
-            mBundle.putString("password", inputPassword.editText.toString())
+            mBundle.putString("email", inputEmail.getEditText().toString())
+            mBundle.putString("password", inputPassword.getEditText().toString())
             intent.putExtra("register", mBundle)
 
             startActivity(intent)

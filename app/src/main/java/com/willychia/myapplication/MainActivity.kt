@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             //Ganti Password dengan Kode kalian
-            if (username == "admin" && password == "admin") checkLogin = true
+            if (username == "admin" && password == "admin" || username == vEmail && password == vPassword) checkLogin = true
+
             if(!checkLogin)return@OnClickListener
             val moveHome = Intent(this@MainActivity, HomeActivity::class.java)
             startActivity(moveHome)
@@ -77,8 +78,8 @@ class MainActivity : AppCompatActivity() {
 
     fun setText(){
         inputEmail = findViewById(R.id.textInputLayoutEmail)
-        inputEmail.editText.toString()
+        inputEmail.getEditText()?.setText(vEmail)
         inputPassword = findViewById(R.id.textInputLayoutPassword)
-        inputPassword.editText.toString()
+        inputPassword.getEditText()?.setText(vPassword)
     }
 }
