@@ -56,21 +56,13 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutTanggal"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_inputTanggal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Tanggal"
-            app:errorEnabled="true"
-            app:startIconDrawable="@drawable/ic_calendar_24"
-            android:layout_marginBottom="8dp">
+            android:text=" Masukkan Tanggal Lahir"
+            android:textSize="25dp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutnoTelp"
@@ -121,6 +113,13 @@
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text=" Masukkan Tanggal Lahir"
+        android:id="@+id/tv_inputTanggal"/>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
