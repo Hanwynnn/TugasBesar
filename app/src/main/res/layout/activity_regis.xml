@@ -56,13 +56,14 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_inputTanggal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" Masukkan Tanggal Lahir"
-            android:textSize="25dp" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTgl"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Masukkan Tanggal Lahir" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutnoTelp"
@@ -113,13 +114,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:text=" Masukkan Tanggal Lahir"
-        android:id="@+id/tv_inputTanggal"/>
+
 
     <LinearLayout
         android:id="@+id/linearLayout4"

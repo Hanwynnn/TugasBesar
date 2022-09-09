@@ -18,7 +18,7 @@ class RegisActivity : AppCompatActivity() {
     private lateinit var inputPassword: TextInputLayout
     private lateinit var inputEmail: TextInputLayout
     private lateinit var inputNoTelp: TextInputLayout
-    private lateinit var inputTanggal: TextView
+    private lateinit var btnTgl: Button
     private lateinit var btnReg: Button
     private lateinit var btnLogin: Button
     private lateinit var regisLayout: ConstraintLayout
@@ -33,7 +33,7 @@ class RegisActivity : AppCompatActivity() {
         inputPassword = findViewById(R.id.textInputLayoutPassword)
         inputEmail = findViewById(R.id.textInputLayoutEmail)
         inputNoTelp = findViewById(R.id.textInputLayoutnoTelp)
-        inputTanggal = findViewById(R.id.tv_inputTanggal)
+        btnTgl = findViewById(R.id.btnTgl)
         btnReg = findViewById(R.id.btnReg)
 //        btnLogin = findViewById(R.id.btnLogin)
         val cal = Calendar.getInstance()
@@ -41,9 +41,9 @@ class RegisActivity : AppCompatActivity() {
         val bulan = cal.get(Calendar.MONTH)
         val hari = cal.get(Calendar.DAY_OF_MONTH)
 
-            inputTanggal.setOnClickListener {
+            btnTgl.setOnClickListener {
                 val datePickerDialog = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
-                    inputTanggal.text="Tanggal:" + hari + "/ " + (bulan + 1) + "/ " + tahun
+                    btnTgl.text="Tanggal:" + hari + "/ " + (bulan + 1) + "/ " + tahun
                 },tahun,bulan,hari)
                 datePickerDialog.show()
             }
