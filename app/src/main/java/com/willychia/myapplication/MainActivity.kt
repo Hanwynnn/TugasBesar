@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 
 
@@ -33,17 +34,27 @@ class MainActivity : AppCompatActivity() {
         mainLayout = findViewById(R.id.mainLayout)
         val btnReg: Button = findViewById(R.id.btnReg)
         val btnLogin: Button = findViewById(R.id.btnLogin)
+        val btnClear: Button = findViewById(R.id.btnClear)
 
         btnReg.setOnClickListener (View.OnClickListener{//Mengosongkan Input
             val intent = Intent(this, RegisActivity::class.java)
             startActivity(intent)
-
-            setText()
         })
+
+        //Aksi btnClear
+        btnClear.setOnClickListener{ //Mengosongkan Input
+            inputEmail.getEditText()?.setText("")
+            inputPassword.getEditText()?.setText("")
+
+            //Memunculkan Snackbar
+            Snackbar.make(mainLayout, "Text Cleared Success", Snackbar.LENGTH_LONG).show()
+        }
 
         //Aksi btnLogin
         btnLogin.setOnClickListener (View.OnClickListener {
             var checkLogin = false
+            getBundle()
+            setText()
             val username: String = inputEmail.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
@@ -62,10 +73,6 @@ class MainActivity : AppCompatActivity() {
             //Ganti Password dengan Kode kalian
             getBundle()
             if (username == "admin" && password == "admin" || username == vEmail && password == vPassword) checkLogin = true
-
-            if(!checkLogin)return@OnClickListener
-            val moveHome = Intent(this@MainActivity, HomeActivity::class.java)
-            startActivity(moveHome)
         })
 
     }
