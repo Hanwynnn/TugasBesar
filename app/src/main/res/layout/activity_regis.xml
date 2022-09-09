@@ -104,7 +104,8 @@
             android:hint="Password"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_lock_24"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditText"

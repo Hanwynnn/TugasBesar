@@ -29,7 +29,7 @@ class RegisActivity : AppCompatActivity() {
 
         setTitle("User Register")
 
-        inputUsername = findViewById(R.id.textInputLayoutEmail)
+        inputUsername = findViewById(R.id.textInputLayoutNama)
         inputPassword = findViewById(R.id.textInputLayoutPassword)
         inputEmail = findViewById(R.id.textInputLayoutEmail)
         inputNoTelp = findViewById(R.id.textInputLayoutnoTelp)
@@ -53,9 +53,8 @@ class RegisActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 val mBundle = Bundle()
 
-                mBundle.putString("email", inputEmail.getEditText()?.toString())
-                mBundle.putString("password", inputPassword.getEditText()?.toString())
-                intent.putExtras(mBundle)
+                intent.putExtra("email", inputEmail.getEditText()?.text.toString())
+                intent.putExtra("password", inputPassword.getEditText()?.text.toString())
 
                 startActivity(intent)
             })

@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity() {
     //Atribut yang dipakai
 
     private lateinit var inputEmail: TextInputLayout
-    private  lateinit var inputPassword: TextInputLayout
-    private  lateinit var mainLayout: ConstraintLayout
+    private lateinit var inputPassword: TextInputLayout
+    private lateinit var mainLayout: ConstraintLayout
     lateinit var mBundle: Bundle
 
     lateinit var vEmail: String
@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         val btnLogin: Button = findViewById(R.id.btnLogin)
         val btnClear: Button = findViewById(R.id.btnClear)
 
+        getBundle()
+        setText()
+
         btnReg.setOnClickListener (View.OnClickListener{//Masuk ke laman registrasi
             val intent = Intent(this, RegisActivity::class.java)
             startActivity(intent)
@@ -53,10 +56,12 @@ class MainActivity : AppCompatActivity() {
         //Aksi btnLogin
         btnLogin.setOnClickListener (View.OnClickListener {
             var checkLogin = false
-            getBundle()
-            setText()
+
             val username: String = inputEmail.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
+
+            //Ganti Password dengan Kode kalian
+            if (username == "admin" && password == "admin" || username == vEmail && password == vPassword) checkLogin = true
 
             //Pengecekan apakah inputan kosong
             if(username.isEmpty()){
@@ -65,32 +70,28 @@ class MainActivity : AppCompatActivity() {
             }
 
             //Pengeceka  apakah inputan kosong
-            if(password.isEmpty()){
+            if(password.isEmpty()) {
                 inputPassword.setError("Password must be filled with text")
                 checkLogin = false
             }
 
-            //Ganti Password dengan Kode kalian
-            getBundle()
-            if (username == "admin" && password == "admin" || username == vEmail && password == vPassword) checkLogin = true
-
-            if(!checkLogin)return@OnClickListener
+            if(!checkLogin){
+                Snackbar.make(mainLayout, "Username Atau Password Salah", Snackbar.LENGTH_LONG).show()
+                return@OnClickListener
+            }
             val moveHome = Intent(this@MainActivity, HomeActivity::class.java)
             startActivity(moveHome)
         })
-
     }
 
-    fun getBundle(){
-        mBundle = getIntent().getExtras()!!
-        vEmail = mBundle.getString("email")!!
-        vPassword = mBundle.getString("password")!!
-    }
+        fun getBundle(){
+            vEmail = intent.getStringExtra("email").toString()
+            vPassword = intent.getStringExtra("password").toString()
+        }
 
-    fun setText(){
-        inputEmail = findViewById(R.id.textInputLayoutEmail)
-        inputEmail.getEditText()?.setText(vEmail)
-        inputPassword = findViewById(R.id.textInputLayoutPassword)
-        inputPassword.getEditText()?.setText(vPassword)
-    }
+        fun setText(){
+            if(vEmail!="null") {
+                inputEmail.getEditText()?.setText(vEmail)
+            }
+        }
 }

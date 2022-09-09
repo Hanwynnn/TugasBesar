@@ -64,7 +64,8 @@
             android:hint="Password"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_lock_24"
-            app:helperText="Masukkan Password Anda">
+            app:helperText="Masukkan Password Anda"
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
