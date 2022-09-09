@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val btnLogin: Button = findViewById(R.id.btnLogin)
         val btnClear: Button = findViewById(R.id.btnClear)
 
-        btnReg.setOnClickListener (View.OnClickListener{//Mengosongkan Input
+        btnReg.setOnClickListener (View.OnClickListener{//Masuk ke laman registrasi
             val intent = Intent(this, RegisActivity::class.java)
             startActivity(intent)
         })
@@ -73,6 +73,10 @@ class MainActivity : AppCompatActivity() {
             //Ganti Password dengan Kode kalian
             getBundle()
             if (username == "admin" && password == "admin" || username == vEmail && password == vPassword) checkLogin = true
+
+            if(!checkLogin)return@OnClickListener
+            val moveHome = Intent(this@MainActivity, HomeActivity::class.java)
+            startActivity(moveHome)
         })
 
     }
