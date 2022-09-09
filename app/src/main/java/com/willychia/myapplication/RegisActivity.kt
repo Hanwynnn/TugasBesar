@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.textfield.TextInputLayout
 import android.content.Intent
 import android.view.View
+import android.widget.TextView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialStyledDatePickerDialog
 import java.util.*
@@ -17,7 +18,7 @@ class RegisActivity : AppCompatActivity() {
     private lateinit var inputPassword: TextInputLayout
     private lateinit var inputEmail: TextInputLayout
     private lateinit var inputNoTelp: TextInputLayout
-    private lateinit var inputTanggal: TextInputLayout
+    private lateinit var inputTanggal: TextView
     private lateinit var btnReg: Button
     private lateinit var btnLogin: Button
     private lateinit var regisLayout: ConstraintLayout
@@ -32,9 +33,9 @@ class RegisActivity : AppCompatActivity() {
         inputPassword = findViewById(R.id.textInputLayoutPassword)
         inputEmail = findViewById(R.id.textInputLayoutEmail)
         inputNoTelp = findViewById(R.id.textInputLayoutnoTelp)
-        inputTanggal = findViewById(R.id.textInputLayoutTanggal)
+        inputTanggal = findViewById(R.id.tv_inputTanggal)
         btnReg = findViewById(R.id.btnReg)
-        btnLogin = findViewById(R.id.btnLogin)
+//        btnLogin = findViewById(R.id.btnLogin)
         val cal = Calendar.getInstance()
         val tahun = cal.get(Calendar.YEAR)
         val bulan = cal.get(Calendar.MONTH)
@@ -42,7 +43,7 @@ class RegisActivity : AppCompatActivity() {
 
             inputTanggal.setOnClickListener {
                 val datePickerDialog = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
-                    inputTanggal.hint="Tanggal:" + hari + "/ " + (bulan + 1) + "/ " + tahun
+                    inputTanggal.text="Tanggal:" + hari + "/ " + (bulan + 1) + "/ " + tahun
                 },tahun,bulan,hari)
                 datePickerDialog.show()
             }
@@ -59,10 +60,10 @@ class RegisActivity : AppCompatActivity() {
                 startActivity(intent)
             })
 
-            btnLogin.setOnClickListener(View.OnClickListener {
-                val intent = Intent(this@RegisActivity, MainActivity::class.java)
-                startActivity(intent)
-            })
+//            btnLogin.setOnClickListener(View.OnClickListener {
+//                val intent = Intent(this@RegisActivity, MainActivity::class.java)
+//                startActivity(intent)
+//            })
         }
 
 
