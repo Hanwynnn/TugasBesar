@@ -6,10 +6,10 @@
     tools:context=".FragmentFilm">
 
     <!-- TODO: Update blank fragment layout -->
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/rv_film"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_film"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/rv_item_film"/>
+        android:layout_height="645dp"
+        tools:listitem="@layout/rv_item_film" />
 
 </FrameLayout>

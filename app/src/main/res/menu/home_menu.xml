@@ -4,15 +4,15 @@
         android:id="@+id/home"
         android:enabled="true"
         android:icon="@drawable/ic_home_24"
-        android:title="@string/favorites"/>
+        android:title="Home"/>
     <item
         android:id="@+id/location"
         android:enabled="true"
         android:icon="@drawable/ic_location_24"
-        android:title="@string/music"/>
+        android:title="Location"/>
     <item
         android:id="@+id/movie"
         android:enabled="true"
         android:icon="@drawable/ic_movie_24"
-        android:title="@string/places"/>
+        android:title="Movie"/>
 </menu>

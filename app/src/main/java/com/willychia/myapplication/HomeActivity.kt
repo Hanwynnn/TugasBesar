@@ -2,12 +2,14 @@ package com.willychia.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
         if(fragment != null){
             getSupportFragmentManager()
                 .beginTransaction()
-                .replace(androidx.constraintlayout.widget.R.id.home, fragment)
+                .replace(R.id.layout_fragment, fragment)
                 .commit()
         }
     }
@@ -34,10 +36,10 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.home){
-            changeFragment(FragmentFilm())
-        }else if(item.itemId == R.id.movie){
 
-        } else {
+        }else if(item.itemId == R.id.movie){
+            changeFragment(FragmentFilm())
+        } else if(item.itemId == R.id.location){
             val builder: AlertDialog.Builder = AlertDialog.Builder(this@HomeActivity)
             builder.setMessage("Are you sure want to exit?")
                 .setPositiveButton("YES", object : DialogInterface.OnClickListener{
@@ -52,6 +54,9 @@ class HomeActivity : AppCompatActivity() {
                     }
                 })
                 .show()
+        }
+        else {
+
         }
         return super.onOptionsItemSelected(item)
     }
