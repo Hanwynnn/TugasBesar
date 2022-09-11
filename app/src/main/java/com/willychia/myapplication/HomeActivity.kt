@@ -14,14 +14,14 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        changeFragment(FragmentPengunjung())
+        //changeFragment(FragmentPengunjung())
     }
 
     fun changeFragment(fragment: Fragment){
         if(fragment != null){
             getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.layout_fragment, fragment)
+                .replace(androidx.constraintlayout.widget.R.id.home, fragment)
                 .commit()
         }
     }
@@ -32,19 +32,19 @@ class HomeActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.menu_Pengunjung){
-            changeFragment(FragmentPengunjung())
-        } else {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this@HomeActivity)
-            builder.setMessage("Are you sure want to exit?")
-                .setPositiveButton("YES", object : DialogInterface.OnClickListener{
-                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                        finishAndRemoveTask()
-                    }
-                })
-                .show()
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if(item.itemId == R.id.menu_Pengunjung){
+//            changeFragment(FragmentPengunjung())
+//        } else {
+//            val builder: AlertDialog.Builder = AlertDialog.Builder(this@HomeActivity)
+//            builder.setMessage("Are you sure want to exit?")
+//                .setPositiveButton("YES", object : DialogInterface.OnClickListener{
+//                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
+//                        finishAndRemoveTask()
+//                    }
+//                })
+//                .show()
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 }
