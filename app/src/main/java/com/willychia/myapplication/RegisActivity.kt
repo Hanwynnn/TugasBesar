@@ -8,9 +8,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.textfield.TextInputLayout
 import android.content.Intent
 import android.view.View
-import android.widget.TextView
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.datepicker.MaterialStyledDatePickerDialog
+import androidx.core.view.isEmpty
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 class RegisActivity : AppCompatActivity() {
@@ -35,7 +34,7 @@ class RegisActivity : AppCompatActivity() {
         inputNoTelp = findViewById(R.id.textInputLayoutnoTelp)
         btnTgl = findViewById(R.id.btnTgl)
         btnReg = findViewById(R.id.btnReg)
-//        btnLogin = findViewById(R.id.btnLogin)
+        regisLayout = findViewById(R.id.regisActivity)
         val cal = Calendar.getInstance()
         val tahun = cal.get(Calendar.YEAR)
         val bulan = cal.get(Calendar.MONTH)
@@ -52,17 +51,21 @@ class RegisActivity : AppCompatActivity() {
             btnReg.setOnClickListener (View.OnClickListener{
                 val intent = Intent(this, MainActivity::class.java)
                 val mBundle = Bundle()
+                var checkReg: Boolean = false
 
-                intent.putExtra("email", inputEmail.getEditText()?.text.toString())
-                intent.putExtra("password", inputPassword.getEditText()?.text.toString())
+                if(inputEmail.isEmpty() || inputPassword.isEmpty() || inputUsername.isEmpty() || inputNoTelp.isEmpty()){
+                    checkReg = false
+                }
 
-                startActivity(intent)
+                if(!checkReg){
+                    Snackbar.make(regisLayout, "Data masih ada yang kosong", Snackbar.LENGTH_LONG).show()
+                }else{
+                    intent.putExtra("email", inputEmail.getEditText()?.text.toString())
+                    intent.putExtra("password", inputPassword.getEditText()?.text.toString())
+
+                    startActivity(intent)
+                }
             })
-
-//            btnLogin.setOnClickListener(View.OnClickListener {
-//                val intent = Intent(this@RegisActivity, MainActivity::class.java)
-//                startActivity(intent)
-//            })
         }
 
 
