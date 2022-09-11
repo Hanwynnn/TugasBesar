@@ -14,7 +14,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        //changeFragment(FragmentPengunjung())
+        changeFragment(FragmentFilm())
     }
 
     fun changeFragment(fragment: Fragment){
@@ -32,19 +32,27 @@ class HomeActivity : AppCompatActivity() {
         return true
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if(item.itemId == R.id.menu_Pengunjung){
-//            changeFragment(FragmentPengunjung())
-//        } else {
-//            val builder: AlertDialog.Builder = AlertDialog.Builder(this@HomeActivity)
-//            builder.setMessage("Are you sure want to exit?")
-//                .setPositiveButton("YES", object : DialogInterface.OnClickListener{
-//                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
-//                        finishAndRemoveTask()
-//                    }
-//                })
-//                .show()
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.home){
+            changeFragment(FragmentFilm())
+        }else if(item.itemId == R.id.movie){
+
+        } else {
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this@HomeActivity)
+            builder.setMessage("Are you sure want to exit?")
+                .setPositiveButton("YES", object : DialogInterface.OnClickListener{
+                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
+                        finishAndRemoveTask()
+                    }
+                })
+
+                .setNegativeButton("NO", object : DialogInterface.OnClickListener{
+                    override fun onClick(dialogInterface: DialogInterface, i: Int){
+
+                    }
+                })
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
