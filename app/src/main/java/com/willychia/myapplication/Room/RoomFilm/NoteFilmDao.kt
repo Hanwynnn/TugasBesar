@@ -6,17 +6,17 @@ import com.willychia.myapplication.Room.RoomFilm.NoteFilm
 @Dao
 interface NoteFilmDao {
     @Insert
-    suspend fun addNoteFilm(note: NoteFilm)
+    fun addNoteFilm(note: NoteFilm)
 
     @Update
-    suspend fun updateNoteFilm(note: NoteFilm)
+    fun updateNoteFilm(note: NoteFilm)
 
     @Delete
-    suspend fun deleteNoteFilm(note: NoteFilm)
+    fun deleteNoteFilm(note: NoteFilm)
 
     @Query("SELECT * FROM NoteFilm")
-    suspend fun getNotesFilm() : List<NoteFilm>
+    fun getNotesFilm() : List<NoteFilm>
 
     @Query("SELECT * FROM NoteFilm WHERE id =:note_id")
-    suspend fun getNote(note_id: Int) : List<NoteFilm>
+    fun getNote(note_id: Int) : List<NoteFilm>
 }

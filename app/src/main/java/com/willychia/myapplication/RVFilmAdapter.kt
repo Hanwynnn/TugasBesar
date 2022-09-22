@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.willychia.myapplication.entity.Film
+import com.willychia.myapplication.Room.RoomFilm.NoteFilm
 
-class RVFilmAdapter (private val data: Array<Film>) : RecyclerView.Adapter<RVFilmAdapter.viewHolder>() {
+class RVFilmAdapter (private val data: ArrayList<NoteFilm>) : RecyclerView.Adapter<RVFilmAdapter.viewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.rv_item_film, parent, false)
@@ -16,7 +16,7 @@ class RVFilmAdapter (private val data: Array<Film>) : RecyclerView.Adapter<RVFil
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val currentItem = data[position]
-        holder.tvNamaFilm.text = currentItem.namaFilm
+        holder.tvNamaFilm.text = currentItem.judul
         holder.tvDetails2.text = "${currentItem.genre} - ${currentItem.rating}"
     }
 

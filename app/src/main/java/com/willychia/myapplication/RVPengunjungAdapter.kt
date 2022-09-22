@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.willychia.myapplication.Room.RoomPengunjung.NotePengunjung
 import com.willychia.myapplication.entity.Pengunjung
 
-class RVPengunjungAdapter (private val data: Array<Pengunjung>) : RecyclerView.Adapter<RVPengunjungAdapter.viewHolder>(){
+class RVPengunjungAdapter(private val data: Array<Pengunjung>) : RecyclerView.Adapter<RVPengunjungAdapter.viewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder{
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_item_pengunjung, parent, false)
         return viewHolder(itemView)
