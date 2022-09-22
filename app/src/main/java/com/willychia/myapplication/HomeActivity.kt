@@ -24,15 +24,15 @@ class HomeActivity : AppCompatActivity() {
         botNav.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.home -> {
-                    changeFragment(FragmentFilm())
+
                     true
                 }
                 R.id.location -> {
-                    changeFragment(FragmentFilm())
+                    changeFragment(FragmentPengunjung())
                     true
                 }
                 R.id.movie -> {
-                    changeFragment(FragmentPengunjung())
+                    changeFragment(FragmentFilm())
                     true
                 }
                 R.id.profile -> {
