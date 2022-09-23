@@ -3,21 +3,13 @@ package com.willychia.myapplication
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.textfield.TextInputLayout
 import android.content.Intent
 import android.view.View
 import androidx.core.view.isEmpty
 import com.google.android.material.snackbar.Snackbar
 import com.willychia.myapplication.Room.BigDB
-import com.willychia.myapplication.Room.Constant
 import com.willychia.myapplication.Room.RoomPengunjung.NotePengunjung
 import com.willychia.myapplication.databinding.ActivityRegisBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.lang.invoke.ConstantCallSite
 import java.util.*
 
 class RegisActivity : AppCompatActivity() {

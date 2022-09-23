@@ -11,12 +11,9 @@ interface NotePengunjungDao {
     @Update
     fun updateNotePengunjung(note: NotePengunjung)
 
-    @Delete
-    fun deleteNotePengunjung(note: NotePengunjung)
-
-    @Query("SELECT * FROM notePengunjung")
+    @Query("SELECT * FROM NotePengunjung")
     fun getNotesPengunjung(): List<NotePengunjung>
 
-    @Query("SELECT * FROM notePengunjung WHERE idPengunjung =:note_id")
+    @Query("SELECT * FROM notePengunjung WHERE idPengunjung=:note_id")
     fun getPengunjung(note_id: Int): List<NotePengunjung>
 }

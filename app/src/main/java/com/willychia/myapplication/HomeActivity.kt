@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.location -> {
-                    changeFragment(FragmentPengunjung())
+
                     true
                 }
                 R.id.movie -> {
@@ -36,7 +36,7 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
-                    exit()
+                    changeFragment(FragmentPengunjung())
                     true
                 }
                 else -> false
