@@ -1,8 +1,11 @@
 package com.willychia.myapplication
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,10 +24,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var vEmail: String
     lateinit var vPassword: String
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         //Ubah Title paa App Bar Aplikasi
         setTitle("User Login")
 
