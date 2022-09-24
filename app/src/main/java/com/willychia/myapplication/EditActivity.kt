@@ -7,7 +7,10 @@ import android.os.Bundle
 import com.willychia.myapplication.Room.BigDB
 import com.willychia.myapplication.databinding.ActivityEditBinding
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.view.View
+import androidx.fragment.app.Fragment
+import com.willychia.myapplication.Room.RoomPengunjung.NotePengunjung
 import java.util.*
 
 
@@ -37,6 +40,16 @@ class EditActivity : AppCompatActivity() {
                 binding.btnTgl.text="" + hari + "/ " + (bulan.toInt() + 1).toString() + "/ " + tahun },tahun,bulan,hari)
             datePickerDialog.show()
         })
+
+        binding.btnUpdate.setOnClickListener(View.OnClickListener {
+            db.pengunjungDAO().updateNotePengunjung(NotePengunjung(id, binding.textInputLayoutNama.getEditText()?.text.toString(),
+            binding.btnTgl.text.toString(), binding.textInputLayoutEmail.getEditText()?.text.toString(),
+            binding.textInputLayoutPassword.getEditText()?.text.toString(), binding.textInputLayoutnoTelp.getEditText()?.text.toString()))
+            finish()
+            val intent=Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+//            changeFragment(FragmentPengunjung())
+        })
     }
 
     fun getNote(id: Int){
@@ -47,4 +60,11 @@ class EditActivity : AppCompatActivity() {
         binding.textInputLayoutPassword.getEditText()?.setText(notes.password)
         binding.btnTgl.setText(notes.tglLahir)
     }
+
+//    fun changeFragment(fragment: Fragment){
+//        getSupportFragmentManager()
+//            .beginTransaction()
+//            .replace(R.id.layout_fragment, fragment)
+//            .commit()
+//    }
 }
