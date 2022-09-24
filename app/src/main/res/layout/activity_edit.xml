@@ -6,4 +6,124 @@
     android:layout_height="match_parent"
     tools:context=".EditActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Edit Profile"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutNama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Nama"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_user_24"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTgl"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Masukkan Tanggal Lahir" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutnoTelp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="noTelp"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_phone_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Email"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_email_24"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Password"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_lock_24"
+            android:layout_marginBottom="8dp"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/LinearLayout3"
+        app:layout_constraintStart_toStartOf="@+id/LinearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout3">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUpdate"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

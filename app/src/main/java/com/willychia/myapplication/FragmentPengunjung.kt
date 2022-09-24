@@ -51,6 +51,11 @@ class FragmentPengunjung : Fragment() {
         binding.btnLogOut.setOnClickListener(View.OnClickListener{
             exit()
         })
+
+        binding.btnEdit.setOnClickListener{
+            val intent = Intent(activity, EditActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun exit(){
