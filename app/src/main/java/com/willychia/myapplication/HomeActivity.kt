@@ -56,20 +56,4 @@ class HomeActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.home_menu, menu)
         return true
     }
-
-    fun exit(){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this@HomeActivity)
-        builder.setMessage("Are you sure want to exit?")
-            .setPositiveButton("YES", object : DialogInterface.OnClickListener{
-                override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                    finishAndRemoveTask()
-                }
-            })
-            .setNegativeButton("NO", object : DialogInterface.OnClickListener{
-                override fun onClick(p0: DialogInterface?, p1: Int) {
-
-                }
-            })
-            .show()
-    }
 }

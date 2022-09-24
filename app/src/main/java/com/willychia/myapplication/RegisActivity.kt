@@ -32,7 +32,7 @@ class RegisActivity : AppCompatActivity() {
 
         binding.btnTgl.setOnClickListener {
             val datePickerDialog = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
-                binding.btnTgl.text="Tanggal:" + hari + "/ " + (bulan + 1) + "/ " + tahun },tahun,bulan,hari)
+                binding.btnTgl.text="" + hari + "/ " + (bulan + 1) + "/ " + tahun },tahun,bulan,hari)
             datePickerDialog.show()
         }
 
