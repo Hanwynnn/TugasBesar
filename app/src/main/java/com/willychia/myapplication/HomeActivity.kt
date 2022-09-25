@@ -1,5 +1,7 @@
 package com.willychia.myapplication
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -13,7 +15,7 @@ class HomeActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_home)
 
-        changeFragment(FragmentFilm())
+//        changeFragment(FragmentFilm())
 
         val botNav : NavigationBarView = findViewById(R.id.bottom_navigation)
 
