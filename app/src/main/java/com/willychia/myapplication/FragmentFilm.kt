@@ -1,13 +1,20 @@
 package com.willychia.myapplication
 
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.willychia.myapplication.Room.BigDB
+import com.willychia.myapplication.Room.Constant
+import com.willychia.myapplication.Room.RoomFilm.NoteFilm
 import kotlinx.android.synthetic.main.fragment_film.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,87 +27,91 @@ import kotlinx.coroutines.launch
 //private const val ARG_PARAM2 = "param2"
 
 class FragmentFilm : Fragment() {
-//    val db by lazy {BigDB(this@FragmentFilm) }
-//    private var noteId: Int = 0
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        return inflater.inflate(R.layout.fragment_film, container, false)
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        val layoutManager = LinearLayoutManager(context)
-//        val adapter : RVFilmAdapter = RVFilmAdapter(NoteFilmDB.listOfFilm)
-//
-//        val rvFilm : RecyclerView = view.findViewById(R.id.rv_film)
-//
-//        rvFilm.layoutManager = layoutManager
-//
-//        rvFilm.setHasFixedSize(true)
-//
-//        rvFilm.adapter = adapter
-//    }
-//
-//
+    val db by lazy { activity?.let { BigDB(it) } }
+    var noteFilmAdapter: RVFilmAdapter ?= null
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_edit)
-//        setupView()
+//        setContentView(R.layout.activity_main)
 //        setupListener()
-//
-////        Toast.makeText(this, noteId.toString(),Toast.LENGTH_SHORT).show()
+//        setupRecyclerView()
 //    }
-//    fun setupView(){
-//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//        val intentType = intent.getIntExtra("intent_type", 0)
-//        when (intentType){
-//            Constant.TYPE_CREATE -> {
-//                button_update.visibility = View.GONE
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_film, container,false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupListener()
+        setupRecyclerView()
+    }
+    //berfungsi untuk membuat sebuah note status pada button yang ditekan untuk CRUD yang dilaksanakan
+    //ini berhubungan dengan Constant status pada room
+    //cara panggil id dengan memanggil fungsi intetnEdit.
+    //jika pada fungsi interface adapterListener berubah, maka object akan memerah error karena penambahan fungsi.
+    private fun setupRecyclerView() {
+        noteFilmAdapter = RVFilmAdapter(arrayListOf(), object :
+            RVFilmAdapter.OnAdapterListener{
+            override fun onClick(note: NoteFilm) {
+                Toast.makeText(context, note.judul, Toast.LENGTH_SHORT).show()
+                intentEdit(note.id, Constant.TYPE_READ)
+            }
+            override fun onUpdate(note: NoteFilm) {
+                intentEdit(note.id, Constant.TYPE_UPDATE)
+            }
+            override fun onDelete(note:  NoteFilm) {
+                deleteDialog(note)
+            }
+        })
+        rv_film.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = noteFilmAdapter
+        }
+    }
+    private fun deleteDialog(note: NoteFilm){
+        activity?.let { it ->
+            MaterialAlertDialogBuilder(it)
+                .setTitle("Are You Sure to delete this data from ${note.judul}?")
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener
+                { dialogInterface, i ->
+                dialogInterface.dismiss()
+                })
+                .setPositiveButton("Delete", DialogInterface.OnClickListener
+                { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                        db?.filmDAO()?.deleteNoteFilm(note)
+                        loadData()
+                })
+                .show()
+        }
+    }
+    override fun onStart() {
+        super.onStart()
+        loadData()
+    }
+    //untuk load data yang tersimpan pada database yang sudah create data
+    fun loadData() {
+            val notes = db?.filmDAO()?.getNotesFilm()
+            Log.d("FragmentFilm","dbResponse: $notes")
+//            withContext(Dispatchers.Main){
+                noteFilmAdapter?.setData( notes !!)
 //            }
-//            Constant.TYPE_READ -> {
-//                button_save.visibility = View.GONE
-//                button_update.visibility = View.GONE
-//                getNote()
-//            }
-//            Constant.TYPE_UPDATE -> {
-//                button_save.visibility = View.GONE
-//                getNote()
-//            }
-//        }
-//    }
-//    private fun setupListener() {
-//        button_save.setOnClickListener {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                db.noteDao().addNote(
-//                    Note(0,edit_title.text.toString(),
-//                        edit_note.text.toString())
-//                )
-//                finish()
-//            }
-//        }
-//        button_update.setOnClickListener {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                db.noteDao().updateNote(
-//                    Note(noteId, edit_title.text.toString(),
-//                        edit_note.text.toString())
-//                )
-//                finish()
-//            }
-//        }
-//    }
-//    fun getNote() {
-//        noteId = intent.getIntExtra("intent_id", 0)
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val notes = db.noteDao().getNote(noteId)[0]
-//            edit_title.setText(notes.title)
-//            edit_note.setText(notes.note)
-//        }
-//    }
-//    override fun onSupportNavigateUp(): Boolean {
-//        onBackPressed()
-//        return super.onSupportNavigateUp()
-//    }
+    }
+    fun setupListener() {
+        button_create.setOnClickListener{
+            intentEdit(0,Constant.TYPE_CREATE)
+        }
+    }
+    //pick data dari Id yang sebagai primary key
+    fun intentEdit(noteId : Int, intentType: Int){
+        startActivity(
+            Intent(context, EditFilmActivity::class.java)
+                .putExtra("intent_id", noteId)
+                .putExtra("intent_type", intentType)
+        )
+    }
 }
