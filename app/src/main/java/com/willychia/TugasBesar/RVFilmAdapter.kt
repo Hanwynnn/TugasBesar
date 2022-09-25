@@ -1,18 +1,13 @@
-package com.willychia.myapplication
+package com.willychia.TugasBesar
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.willychia.myapplication.Room.BigDB
-import com.willychia.myapplication.Room.RoomFilm.NoteFilm
+import com.willychia.TugasBesar.Room.RoomFilm.NoteFilm
 import kotlinx.android.synthetic.main.activity_edit_film.view.*
 import kotlinx.android.synthetic.main.rv_item_film.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class RVFilmAdapter (private val data: ArrayList<NoteFilm>, private val listener: OnAdapterListener) : RecyclerView.Adapter<RVFilmAdapter.NoteViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {

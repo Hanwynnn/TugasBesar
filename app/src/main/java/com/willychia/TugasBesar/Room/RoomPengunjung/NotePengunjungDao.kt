@@ -1,7 +1,6 @@
-package com.willychia.myapplication.Room.RoomPengunjung
+package com.willychia.TugasBesar.Room.RoomPengunjung
 
 import androidx.room.*
-import com.willychia.myapplication.Room.RoomPengunjung.NotePengunjung
 
 @Dao
 interface NotePengunjungDao {

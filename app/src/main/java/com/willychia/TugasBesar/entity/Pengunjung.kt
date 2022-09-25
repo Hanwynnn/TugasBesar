@@ -1,4 +1,4 @@
-package com.willychia.myapplication.entity
+package com.willychia.TugasBesar.entity
 
 class Pengunjung (var name: String, var email: String,  var noTelp : String) {
 

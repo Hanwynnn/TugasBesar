@@ -1,13 +1,13 @@
-package com.willychia.myapplication.Room
+package com.willychia.TugasBesar.Room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.willychia.myapplication.Room.RoomFilm.NoteFilm
-import com.willychia.myapplication.Room.RoomFilm.NoteFilmDao
-import com.willychia.myapplication.Room.RoomPengunjung.NotePengunjung
-import com.willychia.myapplication.Room.RoomPengunjung.NotePengunjungDao
+import com.willychia.TugasBesar.Room.RoomFilm.NoteFilm
+import com.willychia.TugasBesar.Room.RoomFilm.NoteFilmDao
+import com.willychia.TugasBesar.Room.RoomPengunjung.NotePengunjung
+import com.willychia.TugasBesar.Room.RoomPengunjung.NotePengunjungDao
 
 @Database(
     entities = [NoteFilm::class, NotePengunjung::class],

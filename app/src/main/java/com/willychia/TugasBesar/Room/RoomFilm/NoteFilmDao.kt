@@ -1,7 +1,6 @@
-package com.willychia.myapplication.Room.RoomFilm
+package com.willychia.TugasBesar.Room.RoomFilm
 
 import androidx.room.*
-import com.willychia.myapplication.Room.RoomFilm.NoteFilm
 
 @Dao
 interface NoteFilmDao {
