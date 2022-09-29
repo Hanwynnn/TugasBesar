@@ -1,6 +1,5 @@
-package com.willychia.myapplication
+package com.willychia.TugasBesar
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -12,13 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.willychia.myapplication.Room.BigDB
-import com.willychia.myapplication.Room.Constant
-import com.willychia.myapplication.Room.RoomFilm.NoteFilm
+import com.willychia.TugasBesar.Room.BigDB
+import com.willychia.TugasBesar.Room.Constant
+import com.willychia.TugasBesar.Room.RoomFilm.NoteFilm
 import kotlinx.android.synthetic.main.fragment_film.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,7 +31,7 @@ class FragmentFilm : Fragment() {
 //        setupListener()
 //        setupRecyclerView()
 //    }
-
+aawdadaw
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
