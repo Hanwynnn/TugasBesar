@@ -1,0 +1,35 @@
+Index: app/src/main/java/com/willychia/myapplication/FragmentFilm.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/willychia/myapplication/FragmentFilm.kt b/app/src/main/java/com/willychia/TugasBesar/FragmentFilm.kt
+rename from app/src/main/java/com/willychia/myapplication/FragmentFilm.kt
+rename to app/src/main/java/com/willychia/TugasBesar/FragmentFilm.kt
+--- a/app/src/main/java/com/willychia/myapplication/FragmentFilm.kt	(revision 3140460e216eeb9a97bf44c9aeba1e955ecb0603)
++++ b/app/src/main/java/com/willychia/TugasBesar/FragmentFilm.kt	(date 1664413739440)
+@@ -1,6 +1,5 @@
+-package com.willychia.myapplication
++package com.willychia.TugasBesar
+ 
+-import android.content.Context
+ import android.content.DialogInterface
+ import android.content.Intent
+ import android.os.Bundle
+@@ -12,13 +11,10 @@
+ import android.widget.Toast
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import com.google.android.material.dialog.MaterialAlertDialogBuilder
+-import com.willychia.myapplication.Room.BigDB
+-import com.willychia.myapplication.Room.Constant
+-import com.willychia.myapplication.Room.RoomFilm.NoteFilm
++import com.willychia.TugasBesar.Room.BigDB
++import com.willychia.TugasBesar.Room.Constant
++import com.willychia.TugasBesar.Room.RoomFilm.NoteFilm
+ import kotlinx.android.synthetic.main.fragment_film.*
+-import kotlinx.coroutines.CoroutineScope
+-import kotlinx.coroutines.Dispatchers
+-import kotlinx.coroutines.launch
+ 
+ 
+ // TODO: Rename parameter arguments, choose names that match

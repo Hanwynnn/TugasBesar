@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "196401806424",
+    "project_id": "tugasbesar-6d79c",
+    "storage_bucket": "tugasbesar-6d79c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196401806424:android:398ba1bdda48b80e8b9e2d",
+        "android_client_info": {
+          "package_name": "com.willychia.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "196401806424-muotajt2adovc00apak4utqp6fg6lg46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4LG2nJH0ord5uvM_YBCQDr2yIRG6o3Yw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "196401806424-muotajt2adovc00apak4utqp6fg6lg46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
