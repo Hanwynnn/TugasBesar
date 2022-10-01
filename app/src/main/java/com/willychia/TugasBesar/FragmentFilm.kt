@@ -31,8 +31,7 @@ class FragmentFilm : Fragment() {
 //        setupListener()
 //        setupRecyclerView()
 //    }
-aawdadaw
-    //awduaidawudiawbibdiaw
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
