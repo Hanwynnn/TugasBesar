@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        getSupportActionBar()?.hide()
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE)
@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             }else{
                 val moveHome = Intent(this@MainActivity, HomeActivity::class.java)
                 startActivity(moveHome)
+                finish()
             }
         })
     }

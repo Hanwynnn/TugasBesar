@@ -3,15 +3,12 @@ package com.willychia.TugasBesar
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.willychia.TugasBesar.Room.BigDB
@@ -47,7 +44,7 @@ class EditFilmActivity : AppCompatActivity() {
 
         createNotificationChannel()
         setupView()
-//        setupListener()
+
         button_save?.setOnClickListener {
             sendNotification()
             db.filmDAO().addNoteFilm(
@@ -65,9 +62,8 @@ class EditFilmActivity : AppCompatActivity() {
             )
             finish()
         }
-
-        Toast.makeText(this, noteId.toString(), Toast.LENGTH_SHORT).show()
     }
+
     fun setupView(){
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val intentType = intent.getIntExtra("intent_type", 0)
@@ -87,28 +83,6 @@ class EditFilmActivity : AppCompatActivity() {
         }
     }
 
-//    fun setupListener() {
-//        button_save?.setOnClickListener {
-//                db.filmDAO().addNoteFilm(
-//                    NoteFilm(0,edit_judul.text.toString(),
-//                        edit_genre.text.toString(),
-//                        edit_rating.text.toString().toFloat())
-//                )
-//            sendNotification()
-//            notificationId2++
-//            println("ID : "+notificationId2)
-//            finish()
-//        }
-//        button_update?.setOnClickListener {
-//                db.filmDAO().updateNoteFilm(
-//                    NoteFilm(noteId,edit_judul.text.toString(),
-//                        edit_genre.text.toString(),
-//                        edit_rating.text.toString().toFloat())
-//                )
-//                finish()
-//        }
-//    }
-
     fun getNote() {
         noteId = intent.getIntExtra("intent_id", 0)
         val notes = db.filmDAO().getNote(noteId)[0]
@@ -116,6 +90,7 @@ class EditFilmActivity : AppCompatActivity() {
         edit_genre.setText(notes.genre)
         edit_rating.setText(notes.rating.toString())
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()

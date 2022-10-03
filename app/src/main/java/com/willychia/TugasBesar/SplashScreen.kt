@@ -14,6 +14,7 @@ class SplashScreen : AppCompatActivity() {
     var sharedPreferences: SharedPreferences?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
@@ -40,6 +41,7 @@ class SplashScreen : AppCompatActivity() {
         }else{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         // This is used to hide the status bar and make

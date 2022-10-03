@@ -21,6 +21,7 @@ class EditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         super.onCreate(savedInstanceState)
         binding = ActivityEditBinding.inflate(layoutInflater)
         val view = binding.root
@@ -47,8 +48,12 @@ class EditActivity : AppCompatActivity() {
             finish()
             val intent=Intent(this, HomeActivity::class.java)
             startActivity(intent)
-//            changeFragment(FragmentPengunjung())
         })
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     fun getNote(id: Int){
@@ -59,11 +64,4 @@ class EditActivity : AppCompatActivity() {
         binding.textInputLayoutPassword.getEditText()?.setText(notes.password)
         binding.btnTgl.setText(notes.tglLahir)
     }
-
-//    fun changeFragment(fragment: Fragment){
-//        getSupportFragmentManager()
-//            .beginTransaction()
-//            .replace(R.id.layout_fragment, fragment)
-//            .commit()
-//    }
 }
