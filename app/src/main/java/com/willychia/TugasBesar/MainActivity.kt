@@ -15,7 +15,6 @@ import com.willychia.TugasBesar.Room.BigDB
 
 
 class MainActivity : AppCompatActivity() {
-    //Atribut yang dipakai
     val db by lazy { BigDB(this) }
 
     private lateinit var inputEmail: TextInputLayout
@@ -36,9 +35,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE)
-        //Ubah Title paa App Bar Aplikasi
-
-        // Hubungkan variabel dengan ciew di layoutnya
         inputEmail = findViewById(R.id.textInputLayoutEmail)
         inputPassword = findViewById(R.id.textInputLayoutPassword)
         mainLayout = findViewById(R.id.mainLayout)
@@ -69,7 +65,6 @@ class MainActivity : AppCompatActivity() {
             val username: String = inputEmail.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
-            //Ganti Password dengan Kode kalian
             val user = db.pengunjungDAO().getNotesPengunjung()
             Log.d("MainActivity", "dbResponse: $user")
 

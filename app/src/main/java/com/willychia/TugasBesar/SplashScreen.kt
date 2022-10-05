@@ -43,9 +43,5 @@ class SplashScreen : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-        // This is used to hide the status bar and make
-        // the splash screen as a full screen activity.
-
     }
 }

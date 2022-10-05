@@ -43,18 +43,4 @@ class RVFilmAdapter (private val data: ArrayList<NoteFilm>, private val listener
         fun onDelete(note: NoteFilm)
     }
 
-//    override fun onBindViewHolder(holder: viewHolder, position: Int) {
-//        val currentItem = data[position]
-//        holder.tvNamaFilm.text = currentItem.judul
-//        holder.tvDetails2.text = "${currentItem.genre} - ${currentItem.rating}"
-//    }
-
-//    override fun getItemCount(): Int {
-//        return data.size
-//    }
-
-//    class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        val tvNamaFilm: TextView = itemView.findViewById(R.id.tv_namaFilm)
-//        val tvDetails2: TextView = itemView.findViewById(R.id.tv_details2)
-//    }
 }

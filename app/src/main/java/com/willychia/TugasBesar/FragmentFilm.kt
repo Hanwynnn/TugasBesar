@@ -25,12 +25,6 @@ import kotlinx.android.synthetic.main.fragment_film.*
 class FragmentFilm : Fragment() {
     val db by lazy { activity?.let { BigDB(it) } }
     var noteFilmAdapter: RVFilmAdapter ?= null
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-//        setupListener()
-//        setupRecyclerView()
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,10 +39,7 @@ class FragmentFilm : Fragment() {
         setupListener()
         setupRecyclerView()
     }
-    //berfungsi untuk membuat sebuah note status pada button yang ditekan untuk CRUD yang dilaksanakan
-    //ini berhubungan dengan Constant status pada room
-    //cara panggil id dengan memanggil fungsi intetnEdit.
-    //jika pada fungsi interface adapterListener berubah, maka object akan memerah error karena penambahan fungsi.
+
     private fun setupRecyclerView() {
         noteFilmAdapter = RVFilmAdapter(arrayListOf(), object :
             RVFilmAdapter.OnAdapterListener{
@@ -71,7 +62,7 @@ class FragmentFilm : Fragment() {
     private fun deleteDialog(note: NoteFilm){
         activity?.let { it ->
             MaterialAlertDialogBuilder(it)
-                .setTitle("Are You Sure to delete this data from ${note.judul}?")
+                .setTitle("Are You Sure to delete ${note.judul} List Film?")
                 .setNegativeButton("Cancel", DialogInterface.OnClickListener
                 { dialogInterface, i ->
                 dialogInterface.dismiss()
@@ -93,9 +84,7 @@ class FragmentFilm : Fragment() {
     fun loadData() {
             val notes = db?.filmDAO()?.getNotesFilm()
             Log.d("FragmentFilm","dbResponse: $notes")
-//            withContext(Dispatchers.Main){
                 noteFilmAdapter?.setData( notes !!)
-//            }
     }
     fun setupListener() {
         button_create.setOnClickListener{

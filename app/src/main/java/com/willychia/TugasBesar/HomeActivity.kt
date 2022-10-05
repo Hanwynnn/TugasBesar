@@ -16,8 +16,6 @@ class HomeActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_home)
 
-//        changeFragment(FragmentFilm())
-
         val botNav : NavigationBarView = findViewById(R.id.bottom_navigation)
 
         botNav.setOnItemSelectedListener { item ->

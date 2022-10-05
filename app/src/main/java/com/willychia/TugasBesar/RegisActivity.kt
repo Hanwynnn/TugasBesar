@@ -54,7 +54,7 @@ class RegisActivity : AppCompatActivity() {
             val mBundle = Bundle()
             var checkReg: Boolean = false
 
-            if(binding.textInputLayoutEmail.isEmpty() || binding.textInputLayoutPassword.isEmpty() || binding.textInputLayoutNama.isEmpty() || binding.textInputLayoutnoTelp.isEmpty()){
+            if(binding.textInputLayoutEmail.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutPassword.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutNama.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutnoTelp.getEditText()?.text.toString().isEmpty()){
                 checkReg = false
             }else{
                 checkReg = true
@@ -62,6 +62,7 @@ class RegisActivity : AppCompatActivity() {
 
             if(!checkReg){
                 Snackbar.make(binding.regisActivity, "Data masih ada yang kosong", Snackbar.LENGTH_LONG).show()
+                return@OnClickListener
             }else{
                 intent.putExtra("email", binding.textInputLayoutEmail.getEditText()?.text.toString())
                 intent.putExtra("password", binding.textInputLayoutPassword.getEditText()?.text.toString())
@@ -107,8 +108,6 @@ class RegisActivity : AppCompatActivity() {
             .setSmallIcon(R.drawable.ic_user_24)
             .setContentTitle("Register")
             .setContentText("Berhasil Registrasi")
-//            .setContentText(binding?.textInputLayoutnoTelp?.getEditText()?.toString())
-//            .setContentText(binding?.textInputLayoutnoTelp?.getEditText()?.toString())
             .setStyle(NotificationCompat.BigPictureStyle()
                 .bigPicture(myBitmap)
                 .bigLargeIcon(myBitmap))
