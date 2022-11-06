@@ -19,6 +19,26 @@
       },
       "name": "Plaza Ambarukmo XXI",
       "vicinity": "Jl. Laksda Adisucipto No.80, Ambarukmo, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": -7.7596919,
+          "lng": 110.3986012
+        }
+      },
+      "name": "Hartono Mall Jogjakarta",
+      "vicinity": "Jl. Ring Road Utara, Kaliwaru, Condongcatur, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": -7.779501668,
+          "lng": 110.414048898
+        }
+      },
+      "name": "JWalk Yogyakarta",
+      "vicinity": "Jl. Babarsari, Janti, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281"
     }
   ],
   "status": "OK"

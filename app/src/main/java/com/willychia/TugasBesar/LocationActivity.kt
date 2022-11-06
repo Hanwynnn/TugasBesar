@@ -31,9 +31,13 @@ class LocationActivity : AppCompatActivity() {
 
         val geoPoint = GeoPoint(-7.78359000018, 110.3866755)
         val geoPoint2 = GeoPoint(-7.781837, 110.401457)
+        val geoPoint3 = GeoPoint(-7.7596919, 110.3986012)
+        val geoPoint4 = GeoPoint(-7.779501668, 110.414048898)
         mapView.setMultiTouchControls(true)
         mapView.controller.animateTo(geoPoint)
         mapView.controller.animateTo(geoPoint2)
+        mapView.controller.animateTo(geoPoint3)
+        mapView.controller.animateTo(geoPoint4)
         mapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE)
         mapView.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
 
