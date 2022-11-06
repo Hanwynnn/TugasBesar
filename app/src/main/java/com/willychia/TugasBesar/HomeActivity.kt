@@ -25,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.location -> {
-
+                    changeFragment(FragmentLocation())
                     true
                 }
                 R.id.movie -> {
