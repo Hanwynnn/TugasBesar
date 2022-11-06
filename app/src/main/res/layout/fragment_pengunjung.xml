@@ -20,16 +20,13 @@
             style="@style/TextAppearance.MaterialComponents.Headline4"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/logoOrang"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/accountpic"/>
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/camButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/accountpic"
+        android:layout_gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"

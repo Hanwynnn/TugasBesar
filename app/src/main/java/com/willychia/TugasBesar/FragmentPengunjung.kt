@@ -58,6 +58,11 @@ class FragmentPengunjung : Fragment() {
             val intent = Intent(activity, LocationActivity::class.java)
             startActivity(intent)
         }
+
+        binding.camButton.setOnClickListener{
+            val intent = Intent(activity, CameraActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun exit(){

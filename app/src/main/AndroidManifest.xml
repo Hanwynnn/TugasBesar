@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.willychia.TugasBesar">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -20,25 +21,31 @@
         <activity android:name=".LocationActivity"
             android:exported="false"/>
         <activity
+            android:name=".CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditFilmActivity"
             android:exported="false" />
         <activity
-            android:name="com.willychia.TugasBesar.EditActivity"
+            android:name=".EditActivity"
             android:exported="false" />
         <activity
-            android:name="com.willychia.TugasBesar.MainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.willychia.TugasBesar.MovieActivity"
+            android:name=".MovieActivity"
             android:exported="false" />
         <activity
-            android:name="com.willychia.TugasBesar.RegisActivity"
+            android:name=".RegisActivity"
             android:exported="false" />
         <activity
-            android:name="com.willychia.TugasBesar.HomeActivity"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name="com.willychia.TugasBesar.SplashScreen"
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,14 +53,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <receiver android:name=".NotificationReceiver"/>
+
+        <receiver android:name=".NotificationReceiver" />
     </application>
 
 </manifest>
