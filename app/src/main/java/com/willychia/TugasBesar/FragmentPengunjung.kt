@@ -53,6 +53,11 @@ class FragmentPengunjung : Fragment() {
             val intent = Intent(activity, EditActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnLokasi.setOnClickListener{
+            val intent = Intent(activity, LocationActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun exit(){

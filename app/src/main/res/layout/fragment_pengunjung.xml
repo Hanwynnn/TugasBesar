@@ -196,5 +196,13 @@
             android:layout_height="wrap_content"
             android:text="Edit"
             android:textColor="@color/kuning"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLokasi"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lokasi"
+            android:textColor="@color/kuning"/>
     </LinearLayout>
 </LinearLayout>

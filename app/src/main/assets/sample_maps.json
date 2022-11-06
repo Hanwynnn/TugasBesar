@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "geometry": {
+        "location": {
+          "lat": -7.78359000018,
+          "lng": 110.3866755
+        }
+      },
+      "name": "XXI EMPIRE Yogyakarta",
+      "vicinity": "Jl. Urip Sumoharjo No.104, Klitren, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55221"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": -7.781837,
+          "lng": 110.401457
+        }
+      },
+      "name": "Plaza Ambarukmo XXI",
+      "vicinity": "Jl. Laksda Adisucipto No.80, Ambarukmo, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281"
+    }
+  ],
+  "status": "OK"
+}
