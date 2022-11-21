@@ -10,6 +10,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:usesCleartextTraffic="true"
         android:hardwareAccelerated="false"
         android:icon="@drawable/gambar_bioskop"
         android:label="TIX ATMA"
