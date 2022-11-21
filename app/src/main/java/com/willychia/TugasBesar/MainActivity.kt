@@ -8,14 +8,27 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
 import com.willychia.TugasBesar.Room.BigDB
+import com.willychia.TugasBesar.api.FilmApi
+import com.willychia.TugasBesar.api.PengunjungApi
+import com.willychia.TugasBesar.entity.Film
+import com.willychia.TugasBesar.entity.Pengunjung
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 
 
 class MainActivity : AppCompatActivity() {
-    val db by lazy { BigDB(this) }
+//    val db by lazy { BigDB(this) }
 
     private lateinit var inputEmail: TextInputLayout
     private lateinit var inputPassword: TextInputLayout
@@ -28,12 +41,14 @@ class MainActivity : AppCompatActivity() {
     private val myPreference = "myPref"
     private val id = "idKey"
     var sharedPreferences: SharedPreferences?=null
+    private var queue: RequestQueue? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        queue = Volley.newRequestQueue(this)
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE)
         inputEmail = findViewById(R.id.textInputLayoutEmail)
         inputPassword = findViewById(R.id.textInputLayoutPassword)
@@ -65,38 +80,42 @@ class MainActivity : AppCompatActivity() {
             val username: String = inputEmail.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
-            val user = db.pengunjungDAO().getNotesPengunjung()
-            Log.d("MainActivity", "dbResponse: $user")
+            checkLogin(username, password)
 
-            for(i in user){
-                if (username == i.email && password == i.password){
-                    val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                    editor.putString(id, i.idPengunjung.toString()).apply()
-                    checkLogin=true
-                    break
-                }
-            }
+//            val user = db.pengunjungDAO().getNotesPengunjung()
+//            Log.d("MainActivity", "dbResponse: $user")
+
+//            for(i in user){
+//                if (username == i.email && password == i.password){
+//                    val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
+//                    editor.putString(id, i.idPengunjung.toString()).apply()
+//                    checkLogin=true
+//                    break
+//                }
+//            }
 
             //Pengecekan apakah inputan kosong
-            if(username.isEmpty()){
-                inputEmail.setError("Username must be filled with text")
-                checkLogin = false
-            }
+//            if(username.isEmpty()){
+//                inputEmail.setError("Username must be filled with text")
+//                checkLogin = false
+//            }
+//
+//            //Pengeceka  apakah inputan kosong
+//            if(password.isEmpty()) {
+//                inputPassword.setError("Password must be filled with text")
+//                checkLogin = false
+//            }
 
-            //Pengeceka  apakah inputan kosong
-            if(password.isEmpty()) {
-                inputPassword.setError("Password must be filled with text")
-                checkLogin = false
-            }
 
-            if(!checkLogin){
-                Snackbar.make(mainLayout, "Username Atau Password Salah", Snackbar.LENGTH_LONG).show()
-                return@OnClickListener
-            }else{
-                val moveHome = Intent(this@MainActivity, HomeActivity::class.java)
-                startActivity(moveHome)
-                finish()
-            }
+
+//            if(!checkLogin){
+//                Snackbar.make(mainLayout, "Username Atau Password Salah", Snackbar.LENGTH_LONG).show()
+//                return@OnClickListener
+//            }else{
+//                val moveHome = Intent(this@MainActivity, HomeActivity::class.java)
+//                startActivity(moveHome)
+//                finish()
+//            }
         })
     }
 
@@ -110,4 +129,61 @@ class MainActivity : AppCompatActivity() {
                 inputEmail.getEditText()?.setText(vEmail)
             }
         }
+
+    private fun checkLogin(email: String, password: String){
+        println("emailnya masuk gak ya???!!! " + email)
+        val LoginP: SharedPreferences.Editor = sharedPreferences!!.edit()
+
+        val stringRequest : StringRequest =
+            object:
+            StringRequest(Method.GET, PengunjungApi.GET_ALL_URL, Response.Listener { response ->
+                val gson = Gson()
+                val jsonObject = JSONObject(response)
+                var pengunjung : Array<Pengunjung> = gson.fromJson(
+                    jsonObject.getJSONArray("data").toString(),
+                    Array<Pengunjung>::class.java
+                )
+
+                for(i in pengunjung){
+                    if(email.equals(i.email,true) && password.equals(i.password,false)){
+                        LoginP.putInt("id", i.id!!.toInt())
+                        LoginP.apply()
+                        checkLogin = true
+                        val intent = Intent(this, HomeActivity::class.java)
+                        intent.putExtra("id", i.id)
+                        startActivity(intent)
+                        break
+                    }
+                }
+                if(checkLogin == false){
+                    Toast.makeText(this, "Email or Password is incorrect", Toast.LENGTH_SHORT).show()
+                }
+
+            }, Response.ErrorListener { error ->
+//                srFilm!!.isRefreshing = false
+//                try {
+//                    val responseBody =
+//                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+//                    val errors = JSONObject(responseBody)
+//                    Toast.makeText(this@FragmentFilm, errors.getString("message"), Toast.LENGTH_SHORT).show()
+//                } catch (e: Exception){
+                    Toast.makeText(this@MainActivity, error.message, Toast.LENGTH_SHORT).show()
+//                }
+            }) {
+
+//            override fun getHeaders(): Map<String, String> {
+//                val headers = HashMap<String, String>()
+//                headers["Accept"] = "application/json"
+//                return headers
+//            }
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+                params["email"] = email
+                params["password"] = password
+                return params
+            }
+        }
+        queue!!.add(stringRequest)
+    }
 }

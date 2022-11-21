@@ -103,11 +103,7 @@ class EditFilmActivity : AppCompatActivity() {
         val stringRequest: StringRequest =
             object: StringRequest(Method.POST, FilmApi.ADD_URL, Response.Listener { response ->
                 val gson = Gson()
-                val jsonObject = JSONObject(response)
-                var film : Array<Film> = gson.fromJson(
-                    jsonObject.getJSONArray("data").toString(),
-                    Array<Film>::class.java
-                )
+                var film = gson.fromJson(response, Film::class.java)
 
                 if(film != null)
                     Toast.makeText(this@EditFilmActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()

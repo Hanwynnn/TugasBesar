@@ -1,32 +1,41 @@
 package com.willychia.TugasBesar
 
-import android.app.DatePickerDialog
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.view.View
-import androidx.core.view.isEmpty
-import com.google.android.material.snackbar.Snackbar
-import com.willychia.TugasBesar.Room.BigDB
-import com.willychia.TugasBesar.Room.RoomPengunjung.NotePengunjung
-import com.willychia.TugasBesar.databinding.ActivityRegisBinding
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.willychia.TugasBesar.api.PengunjungApi
+import com.willychia.TugasBesar.databinding.ActivityRegisBinding
+import com.willychia.TugasBesar.entity.Film
+import com.willychia.TugasBesar.entity.Pengunjung
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisActivity : AppCompatActivity() {
-    val db by lazy { BigDB(this) }
-    private var userId: Int = 0
+    companion object{
+        const val LAUNCH_ADD_ACTIVITY = 123
+    }
     private lateinit var binding: ActivityRegisBinding
     private val CHANNEL_ID_1 = "channel_notification_01"
     private val notificationId1 = 101
+    private var queue: RequestQueue? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getSupportActionBar()?.hide()
@@ -35,6 +44,7 @@ class RegisActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        queue = Volley.newRequestQueue(this)
         val cal = Calendar.getInstance()
         val tahun = cal.get(Calendar.YEAR)
         val bulan = cal.get(Calendar.MONTH)
@@ -43,7 +53,7 @@ class RegisActivity : AppCompatActivity() {
 
         binding.btnTgl.setOnClickListener {
             val datePickerDialog = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { datePicker, tahun, bulan, hari ->
-                binding.btnTgl.text="" + hari + "/ " + (bulan.toInt() + 1).toString() + "/ " + tahun },tahun,bulan,hari)
+                binding.btnTgl.text="" + tahun +"/" + (bulan.toInt() + 1).toString() + "/" + hari },tahun,bulan,hari)
             datePickerDialog.show()
         }
 
@@ -67,10 +77,11 @@ class RegisActivity : AppCompatActivity() {
                 intent.putExtra("email", binding.textInputLayoutEmail.getEditText()?.text.toString())
                 intent.putExtra("password", binding.textInputLayoutPassword.getEditText()?.text.toString())
 
-                db.pengunjungDAO().addNotePengunjung(
-                    NotePengunjung(0, binding.textInputLayoutNama.getEditText()?.text.toString(), binding.btnTgl.text.toString(), binding.textInputLayoutEmail.getEditText()?.text.toString()
-                        , binding.textInputLayoutPassword.getEditText()?.text.toString(), binding.textInputLayoutnoTelp.getEditText()?.text.toString())
-                )
+//                db.pengunjungDAO().addNotePengunjung(
+//                    NotePengunjung(0, binding.textInputLayoutNama.getEditText()?.text.toString(), binding.btnTgl.text.toString(), binding.textInputLayoutEmail.getEditText()?.text.toString()
+//                        , binding.textInputLayoutPassword.getEditText()?.text.toString(), binding.textInputLayoutnoTelp.getEditText()?.text.toString())
+//                )
+                createPengunjung()
                 sendNotification1()
                 startActivity(intent)
             }
@@ -125,4 +136,66 @@ class RegisActivity : AppCompatActivity() {
         }
     }
 
+    private fun createPengunjung(){
+        val pengunjung = Pengunjung(
+            binding.textInputLayoutNama.getEditText()?.text.toString(),
+            binding.textInputLayoutEmail.getEditText()?.text.toString(),
+            binding.textInputLayoutnoTelp.getEditText()?.text.toString(),
+            binding.textInputLayoutPassword.getEditText()?.text.toString(),
+            binding.btnTgl.text.toString()
+        )
+        val stringRequest: StringRequest =
+            object: StringRequest(Method.POST, PengunjungApi.ADD_URL, Response.Listener { response ->
+                val gson = Gson()
+                var pengunjung = gson.fromJson(response, Pengunjung::class.java)
+
+                if(pengunjung != null)
+                    Toast.makeText(this@RegisActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+
+
+                val returnIntent = Intent()
+                setResult(RESULT_OK, returnIntent)
+                finish()
+            }, Response.ErrorListener { error ->
+                try{
+                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } catch (e: Exception){
+                    Toast.makeText(this@RegisActivity, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }){
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+
+                @Throws(AuthFailureError::class)
+                override fun getBody(): ByteArray {
+                    val gson = Gson()
+                    val requestBody = gson.toJson(pengunjung)
+                    return requestBody.toByteArray(StandardCharsets.UTF_8)
+                }
+
+                override fun getBodyContentType(): String {
+                    return "application/json"
+                }
+            }
+        queue!!.add(stringRequest)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == RegisActivity.LAUNCH_ADD_ACTIVITY){
+            if(resultCode == Activity.RESULT_OK){
+
+            }
+        }
+    }
 }
