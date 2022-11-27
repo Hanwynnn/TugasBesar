@@ -126,13 +126,20 @@
         app:layout_constraintStart_toStartOf="@+id/LinearLayout3"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayout3">
 
-        <com.google.android.material.button.MaterialButton
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/btnReg"-->
+<!--            style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Registrasi" />-->
+        <de.timonknispel.ktloadingbutton.KTLoadingButton
             android:id="@+id/btnReg"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Registrasi" />
+            android:layout_margin="12dp"
+            app:buttonName="Registrasi"
+            app:buttonColor="#C8B51B"/>
 
     </LinearLayout>
 
