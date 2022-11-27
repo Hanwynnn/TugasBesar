@@ -1,14 +1,19 @@
 package com.willychia.TugasBesar
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -19,6 +24,20 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.itextpdf.barcodes.BarcodeQRCode
+import com.itextpdf.io.image.ImageDataFactory
+import com.itextpdf.io.source.ByteArrayOutputStream
+import com.itextpdf.kernel.colors.ColorConstants
+import com.itextpdf.kernel.geom.PageSize
+import com.itextpdf.kernel.pdf.PdfDocument
+import com.itextpdf.kernel.pdf.PdfWriter
+import com.itextpdf.layout.Document
+import com.itextpdf.layout.element.Cell
+import com.itextpdf.layout.element.Image
+import com.itextpdf.layout.element.Paragraph
+import com.itextpdf.layout.element.Table
+import com.itextpdf.layout.property.HorizontalAlignment
+import com.itextpdf.layout.property.TextAlignment
 import com.willychia.TugasBesar.api.PengunjungApi
 import com.willychia.TugasBesar.databinding.ActivityRegisBinding
 import com.willychia.TugasBesar.entity.Film
@@ -27,6 +46,13 @@ import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
+import es.dmoral.toasty.Toasty
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class RegisActivity : AppCompatActivity() {
     companion object{
@@ -74,6 +100,8 @@ class RegisActivity : AppCompatActivity() {
                 Snackbar.make(binding.regisActivity, "Data masih ada yang kosong", Snackbar.LENGTH_LONG).show()
                 return@OnClickListener
             }else{
+                binding.btnReg.startLoading()
+                binding.btnReg.isLoading()
                 intent.putExtra("email", binding.textInputLayoutEmail.getEditText()?.text.toString())
                 intent.putExtra("password", binding.textInputLayoutPassword.getEditText()?.text.toString())
 
@@ -144,15 +172,25 @@ class RegisActivity : AppCompatActivity() {
             binding.textInputLayoutPassword.getEditText()?.text.toString(),
             binding.btnTgl.text.toString()
         )
+
+        val nama = binding.textInputLayoutNama.getEditText()?.text.toString()
+        val email = binding.textInputLayoutEmail.getEditText()?.text.toString()
+        val noTelp = binding.textInputLayoutnoTelp.getEditText()?.text.toString()
+        val password = binding.textInputLayoutPassword.getEditText()?.text.toString()
+        val tgl = binding.btnTgl.text.toString()
+
         val stringRequest: StringRequest =
             object: StringRequest(Method.POST, PengunjungApi.ADD_URL, Response.Listener { response ->
                 val gson = Gson()
                 var pengunjung = gson.fromJson(response, Pengunjung::class.java)
 
                 if(pengunjung != null)
-                    Toast.makeText(this@RegisActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@RegisActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+                    Toasty.success(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT, true).show()
 
+                createPdf(nama, tgl, noTelp, email, password)
 
+                binding.btnReg.doResult(true)
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
                 finish()
@@ -166,7 +204,8 @@ class RegisActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } catch (e: Exception){
-                    Toast.makeText(this@RegisActivity, e.message, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@RegisActivity, e.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
                 }
             }){
                 @Throws(AuthFailureError::class)
@@ -197,5 +236,80 @@ class RegisActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    @SuppressLint("ObsoleteSdkInt")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Throws(
+        FileNotFoundException::class
+    )
+    private fun createPdf(nama: String, tglLahir: String, tlp: String, email: String, password: String) {
+        val pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
+        val file = File(pdfPath, "pdf_UGD_10705.pdf")
+        FileOutputStream(file)
+
+        val writer = PdfWriter(file)
+        val pdfDocument = PdfDocument(writer)
+        val document = Document(pdfDocument)
+        pdfDocument.defaultPageSize = PageSize.A4
+        document.setMargins(5f, 5f, 5f, 5f)
+        @SuppressLint("UseCompatLoadingForDrawables") val d = getDrawable(R.drawable.gambar_bioskop)
+
+        val bitMap = (d as BitmapDrawable?)!!.bitmap
+        val stream = ByteArrayOutputStream()
+        bitMap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        val bitmapData = stream.toByteArray()
+        val imageData = ImageDataFactory.create(bitmapData)
+        val image = Image(imageData)
+        val namapengguna = Paragraph("Identitas Pengguna").setBold().setFontSize(24f)
+            .setTextAlignment(TextAlignment.CENTER)
+        val group = Paragraph(
+            """Berikut adalah User Pengguna TIX UAJY""".trimIndent()).setTextAlignment(
+            TextAlignment.CENTER).setFontSize(12f)
+
+        val width = floatArrayOf(100f, 100f)
+        val table = Table(width)
+
+        table.setHorizontalAlignment(HorizontalAlignment.CENTER)
+        table.addCell(Cell().add(Paragraph("Nama Diri")))
+        table.addCell(Cell().add(Paragraph(nama)))
+        table.addCell(Cell().add(Paragraph("Email")))
+        table.addCell(Cell().add(Paragraph(email)))
+        table.addCell(Cell().add(Paragraph("Nomor Telepon")))
+        table.addCell(Cell().add(Paragraph(tlp)))
+        table.addCell(Cell().add(Paragraph("Tanggal Lahir")))
+        table.addCell(Cell().add(Paragraph(tglLahir)))
+        table.addCell(Cell().add(Paragraph("Password")))
+        table.addCell(Cell().add(Paragraph(password)))
+        val dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        table.addCell(Cell().add(Paragraph("Tanggal Buat PDF")))
+        table.addCell(Cell().add(Paragraph(LocalDate.now().format(dateTimeFormatter))))
+        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss a")
+        table.addCell(Cell().add(Paragraph("Pukul Pembuatan")))
+        table.addCell(Cell().add(Paragraph(LocalTime.now().format(timeFormatter))))
+
+//        val barcodeQRCode = BarcodeQRCode("""
+//            $nama
+//            $umur
+//            $tlp
+//            $alamat
+//            $kampus
+//            ${LocalDate.now().format(dateTimeFormatter)}
+//            ${LocalTime.now().format(timeFormatter)}
+//        """.trimIndent())
+//        val qrCodeObject = barcodeQRCode.createFormXObject(ColorConstants.BLACK, pdfDocument)
+//        val qrCodeImage = Image(qrCodeObject).setWidth(80f).setHorizontalAlignment(
+//            HorizontalAlignment.CENTER)
+
+        document.add(image)
+        document.add(namapengguna)
+        document.add(group)
+        document.add(table)
+//        document.add(qrCodeImage)
+
+        sendNotification1()
+        document.close()
+
+//        Toast.makeText(this,"Pdf Created", Toast.LENGTH_LONG).show()
     }
 }

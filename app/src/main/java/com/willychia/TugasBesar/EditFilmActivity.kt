@@ -14,12 +14,14 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.willychia.TugasBesar.api.FilmApi
 import com.willychia.TugasBesar.entity.Film
+import es.dmoral.toasty.Toasty
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import com.willychia.TugasBesar.databinding.ActivityEditFilmBinding
 
 class EditFilmActivity : AppCompatActivity() {
 
-
+    private lateinit var binding: ActivityEditFilmBinding
     private var etJudul: EditText? = null
     private var etGenre: EditText? = null
     private var etRating: EditText? = null
@@ -28,7 +30,10 @@ class EditFilmActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_film)
+
+        binding = ActivityEditFilmBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         queue = Volley.newRequestQueue(this)
         etJudul = findViewById(R.id.et_judul)
@@ -38,17 +43,23 @@ class EditFilmActivity : AppCompatActivity() {
 
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
         btnCancel.setOnClickListener { finish() }
-        val btnSave = findViewById<Button>(R.id.btn_save)
+//        val btnSave = findViewById<Button>(R.id.btn_save)
         val tvTitle = findViewById<TextView>(R.id.tv_title)
         val id = intent.getIntExtra("id", -1)
         if(id== -1){
             tvTitle.setText("Tambah Film")
-            btnSave.setOnClickListener { createFilm() }
+            binding.btnSave.setOnClickListener {
+                binding.btnSave.startLoading()
+                binding.btnSave.isLoading()
+                createFilm() }
         }else{
             tvTitle.setText("Edit Film")
             getFilmById(id)
 
-            btnSave.setOnClickListener { updateMahasiswa(id) }
+            binding.btnSave.setOnClickListener {
+                binding.btnSave.startLoading()
+                binding.btnSave.isLoading()
+                updateMahasiswa(id) }
         }
     }
 
@@ -65,7 +76,8 @@ class EditFilmActivity : AppCompatActivity() {
                     etJudul!!.setText(film.judul)
                     etGenre!!.setText(film.genre)
                     etRating!!.setText(film.rating.toString())
-                    Toast.makeText(this@EditFilmActivity,"Data berhasil diambil", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@EditFilmActivity,"Data berhasil diambil", Toast.LENGTH_SHORT).show()
+                    Toasty.success(this, "Data berhasil diambil", Toast.LENGTH_SHORT, true).show()
                     setLoading(false)
                 },
                 Response.ErrorListener{ error ->
@@ -79,7 +91,8 @@ class EditFilmActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     } catch (e: Exception){
-                        Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
+                        Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
                     }
                 }) {
             @Throws(AuthFailureError::class)
@@ -106,9 +119,10 @@ class EditFilmActivity : AppCompatActivity() {
                 var film = gson.fromJson(response, Film::class.java)
 
                 if(film != null)
-                    Toast.makeText(this@EditFilmActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@EditFilmActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+                    Toasty.success(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT, true).show()
 
-
+                binding.btnSave.doResult(true)
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
                 finish()
@@ -125,7 +139,8 @@ class EditFilmActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } catch (e: Exception){
-                    Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
                 }
             }){
                 @Throws(AuthFailureError::class)
@@ -163,8 +178,10 @@ class EditFilmActivity : AppCompatActivity() {
                 var mahasiswa = gson.fromJson(response, Film::class.java)
 
                 if(mahasiswa != null)
-                    Toast.makeText(this@EditFilmActivity, "Data berhasil diubah", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@EditFilmActivity, "Data berhasil diubah", Toast.LENGTH_SHORT).show()
+                    Toasty.success(this, "Data berhasil diubah", Toast.LENGTH_SHORT, true).show()
 
+                binding.btnSave.doResult(true)
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
                 finish()
@@ -181,7 +198,8 @@ class EditFilmActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } catch (e: Exception){
-                    Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
                 }
             }){
                 @Throws(AuthFailureError::class)
