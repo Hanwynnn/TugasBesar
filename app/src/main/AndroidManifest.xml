@@ -32,7 +32,7 @@
             android:exported="false" />
         <activity
             android:name=".EditFilmActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".EditActivity"
             android:exported="false" />

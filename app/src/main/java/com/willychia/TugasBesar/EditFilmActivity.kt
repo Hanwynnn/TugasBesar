@@ -103,66 +103,87 @@ class EditFilmActivity : AppCompatActivity() {
             }
         }
         queue!!.add(stringRequest)
-
     }
 
     private fun createFilm(){
         setLoading(true)
-        val film = Film(
-            etJudul!!.text.toString(),
-            etGenre!!.text.toString(),
-            etRating!!.text.toString().toFloat()
-        )
-        val stringRequest: StringRequest =
-            object: StringRequest(Method.POST, FilmApi.ADD_URL, Response.Listener { response ->
-                val gson = Gson()
-                var film = gson.fromJson(response, Film::class.java)
 
-                if(film != null)
-//                    Toast.makeText(this@EditFilmActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
-                    Toasty.success(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT, true).show()
+        val judul = etJudul!!.text.toString()
+        val genre = etGenre!!.text.toString()
+        val rating = etRating!!.text.toString()
 
-                binding.btnSave.doResult(true)
-                val returnIntent = Intent()
-                setResult(RESULT_OK, returnIntent)
-                finish()
+        if(judul.isEmpty()){
+            binding.etJudul.setError("Judul Tidak Boleh Kosong")
+            binding.btnSave.doResult(false)
+        }
+        if(genre.isEmpty()){
+            binding.etGenre.setError("Genre Tidak Boleh Kosong")
+            binding.btnSave.doResult(false)
+        }
+        if(rating.isEmpty() || rating.isBlank() || rating.toFloat() == 0.0f){
+            binding.etRating.setError("Rating harus diisi dengan angka lebih dari 0")
+            binding.btnSave.doResult(false)
+        }
 
-                setLoading(false)
-            }, Response.ErrorListener { error ->
-                setLoading(false)
-                try{
-                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-                    val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this,
-                        errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } catch (e: Exception){
-//                    Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
-                    Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
-                }
-            }){
-                @Throws(AuthFailureError::class)
-                override fun getHeaders(): Map<String, String> {
-                    val headers = HashMap<String, String>()
-                    headers["Accept"] = "application/json"
-                    return headers
-                }
+        if(!judul.isEmpty() && !genre.isEmpty() && !rating.isEmpty() && !rating.isBlank() && rating.toFloat() != 0.0f){
+            val film = Film(
+                etJudul!!.text.toString(),
+                etGenre!!.text.toString(),
+                etRating!!.text.toString().toFloat()
+            )
 
-                @Throws(AuthFailureError::class)
-                override fun getBody(): ByteArray {
+            val stringRequest: StringRequest =
+                object: StringRequest(Method.POST, FilmApi.ADD_URL, Response.Listener { response ->
                     val gson = Gson()
-                    val requestBody = gson.toJson(film)
-                    return requestBody.toByteArray(StandardCharsets.UTF_8)
+                    var film = gson.fromJson(response, Film::class.java)
+
+                    if(film != null)
+//                    Toast.makeText(this@EditFilmActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+                        Toasty.success(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT, true).show()
+
+                    binding.btnSave.doResult(true)
+                    val returnIntent = Intent()
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
+
+                    setLoading(false)
+                }, Response.ErrorListener { error ->
+                    setLoading(false)
+                    try{
+                        val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            this,
+                            errors.getString("message"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception){
+//                    Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
+                        Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
+                    }
+                }){
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): Map<String, String> {
+                        val headers = HashMap<String, String>()
+                        headers["Accept"] = "application/json"
+                        return headers
+                    }
+
+                    @Throws(AuthFailureError::class)
+                    override fun getBody(): ByteArray {
+                        val gson = Gson()
+                        val requestBody = gson.toJson(film)
+                        return requestBody.toByteArray(StandardCharsets.UTF_8)
+                    }
+
+                    override fun getBodyContentType(): String {
+                        return "application/json"
+                    }
                 }
 
-                override fun getBodyContentType(): String {
-                    return "application/json"
-                }
-            }
-
-        queue!!.add(stringRequest)
+            queue!!.add(stringRequest)
+        }
+        setLoading(false)
     }
 
     private fun updateMahasiswa(id: Int){

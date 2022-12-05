@@ -89,17 +89,17 @@ class RegisActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             val mBundle = Bundle()
             var checkReg: Boolean = false
-
-            if(binding.textInputLayoutEmail.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutPassword.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutNama.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutnoTelp.getEditText()?.text.toString().isEmpty()){
-                checkReg = false
-            }else{
-                checkReg = true
-            }
-
-            if(!checkReg){
-                Snackbar.make(binding.regisActivity, "Data masih ada yang kosong", Snackbar.LENGTH_LONG).show()
-                return@OnClickListener
-            }else{
+//
+//            if(binding.textInputLayoutEmail.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutPassword.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutNama.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutnoTelp.getEditText()?.text.toString().isEmpty()){
+//                checkReg = false
+//            }else{
+//                checkReg = true
+//            }
+//
+//            if(!checkReg){
+//                Snackbar.make(binding.regisActivity, "Data masih ada yang kosong", Snackbar.LENGTH_LONG).show()
+//                return@OnClickListener
+//            }else{
                 binding.btnReg.startLoading()
                 binding.btnReg.isLoading()
                 intent.putExtra("email", binding.textInputLayoutEmail.getEditText()?.text.toString())
@@ -112,7 +112,7 @@ class RegisActivity : AppCompatActivity() {
                 createPengunjung()
                 sendNotification1()
                 startActivity(intent)
-            }
+//            }
 
 
         })
@@ -198,11 +198,7 @@ class RegisActivity : AppCompatActivity() {
                 try{
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this,
-                        errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, errors.getString("message"), Toast.LENGTH_SHORT).show()
                 } catch (e: Exception){
 //                    Toast.makeText(this@RegisActivity, e.message, Toast.LENGTH_SHORT).show()
                     Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
