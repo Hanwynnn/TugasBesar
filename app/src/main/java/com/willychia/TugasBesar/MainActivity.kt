@@ -23,16 +23,13 @@ import com.willychia.TugasBesar.api.FilmApi
 import com.willychia.TugasBesar.api.PengunjungApi
 import com.willychia.TugasBesar.entity.Film
 import com.willychia.TugasBesar.entity.Pengunjung
-import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
-import com.willychia.TugasBesar.databinding.ActivityMainBinding
-
+import java.nio.charset.StandardCharsets
 
 
 class MainActivity : AppCompatActivity() {
 //    val db by lazy { BigDB(this) }
-    private lateinit var binding: ActivityMainBinding
+
     private lateinit var inputEmail: TextInputLayout
     private lateinit var inputPassword: TextInputLayout
     private lateinit var mainLayout: ConstraintLayout
@@ -50,31 +47,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-
+        setContentView(R.layout.activity_main)
         queue = Volley.newRequestQueue(this)
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE)
         inputEmail = findViewById(R.id.textInputLayoutEmail)
         inputPassword = findViewById(R.id.textInputLayoutPassword)
         mainLayout = findViewById(R.id.mainLayout)
-//        val btnReg: Button = findViewById(R.id.btnReg)
-//        val btnLogin: Button = findViewById(R.id.btnLogin)
-//        val btnClear: Button = findViewById(R.id.btnClear)
+        val btnReg: Button = findViewById(R.id.btnReg)
+        val btnLogin: Button = findViewById(R.id.btnLogin)
+        val btnClear: Button = findViewById(R.id.btnClear)
 
         getBundle()
         setText()
 
-        binding.btnReg.setOnClickListener (View.OnClickListener{//Masuk ke laman registrasi
+        btnReg.setOnClickListener (View.OnClickListener{//Masuk ke laman registrasi
             val intent = Intent(this, RegisActivity::class.java)
             startActivity(intent)
         })
 
         //Aksi btnClear
-        binding.btnClear.setOnClickListener{ //Mengosongkan Input
+        btnClear.setOnClickListener{ //Mengosongkan Input
             inputEmail.getEditText()?.setText("")
             inputPassword.getEditText()?.setText("")
 
@@ -83,10 +75,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Aksi btnLogin
-        binding.btnLogin.setOnClickListener (View.OnClickListener {
-
-            binding.btnLogin.startLoading()
-            binding.btnLogin.isLoading()
+        btnLogin.setOnClickListener (View.OnClickListener {
 
             val username: String = inputEmail.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
@@ -142,6 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun checkLogin(email: String, password: String){
+        println("emailnya masuk gak ya???!!! " + email)
         val LoginP: SharedPreferences.Editor = sharedPreferences!!.edit()
 
         val stringRequest : StringRequest =
@@ -156,21 +146,17 @@ class MainActivity : AppCompatActivity() {
 
                 for(i in pengunjung){
                     if(email.equals(i.email,true) && password.equals(i.password,false)){
-                        binding.btnLogin.doResult(true){
-                            LoginP.putInt("id", i.id!!.toInt())
-                            LoginP.apply()
-                            checkLogin = true
-                            val intent = Intent(this, HomeActivity::class.java)
-                            intent.putExtra("id", i.id)
-                            startActivity(intent)
-                        }
+                        LoginP.putInt("id", i.id!!.toInt())
+                        LoginP.apply()
+                        checkLogin = true
+                        val intent = Intent(this, HomeActivity::class.java)
+                        intent.putExtra("id", i.id)
+                        startActivity(intent)
                         break
                     }
                 }
                 if(checkLogin == false){
-//                    Toast.makeText(this, "Email or Password is incorrect", Toast.LENGTH_SHORT).show()
-                    Toasty.error(this, "Email or Password is Incorrect", Toast.LENGTH_SHORT, true).show()
-                    binding.btnLogin.doResult(false)
+                    Toast.makeText(this, "Email or Password is incorrect", Toast.LENGTH_SHORT).show()
                 }
 
             }, Response.ErrorListener { error ->
@@ -181,10 +167,7 @@ class MainActivity : AppCompatActivity() {
 //                    val errors = JSONObject(responseBody)
 //                    Toast.makeText(this@FragmentFilm, errors.getString("message"), Toast.LENGTH_SHORT).show()
 //                } catch (e: Exception){
-                error.message?.let {
-                    Toasty.error(this@MainActivity,
-                        it, Toast.LENGTH_SHORT, true).show()
-                }
+                    Toast.makeText(this@MainActivity, error.message, Toast.LENGTH_SHORT).show()
 //                }
             }) {
 

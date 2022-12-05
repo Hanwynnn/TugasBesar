@@ -22,7 +22,6 @@ import com.willychia.TugasBesar.api.FilmApi
 import com.willychia.TugasBesar.api.PengunjungApi
 import com.willychia.TugasBesar.entity.Film
 import com.willychia.TugasBesar.entity.Pengunjung
-import es.dmoral.toasty.Toasty
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -65,8 +64,6 @@ class EditActivity : AppCompatActivity() {
 //            binding.btnTgl.text.toString(), binding.textInputLayoutEmail.getEditText()?.text.toString(),
 //            binding.textInputLayoutPassword.getEditText()?.text.toString(), binding.textInputLayoutnoTelp.getEditText()?.text.toString()))
 //            finish()
-            binding.btnUpdate.startLoading()
-            binding.btnUpdate.isLoading()
             updatePengunjung(userID)
             val intent=Intent(this, HomeActivity::class.java)
             startActivity(intent)
@@ -100,10 +97,8 @@ class EditActivity : AppCompatActivity() {
                 val gson = Gson()
                 var pengunjung = gson.fromJson(response, Film::class.java)
 
-                binding.btnUpdate.doResult(true)
                 if(pengunjung != null)
-//                    Toast.makeText(this@EditActivity, "Data berhasil diubah", Toast.LENGTH_SHORT).show()
-                    Toasty.success(this, "Data berhasil diubah", Toast.LENGTH_SHORT, true).show()
+                    Toast.makeText(this@EditActivity, "Data berhasil diubah", Toast.LENGTH_SHORT).show()
 
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
@@ -118,7 +113,7 @@ class EditActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } catch (e: Exception){
-                    Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
+                    Toast.makeText(this@EditActivity, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
                 @Throws(AuthFailureError::class)
@@ -163,7 +158,7 @@ class EditActivity : AppCompatActivity() {
                     binding.textInputLayoutnoTelp.getEditText()?.setText(pengunjung.noTelp)
                     binding.textInputLayoutPassword.getEditText()?.setText(pengunjung.password)
                     binding.btnTgl.setText(pengunjung.tglLahir)
-                    Toasty.success(this, "Data berhasil diambil", Toast.LENGTH_SHORT, true).show()
+                    Toast.makeText(this,"Data berhasil diambil", Toast.LENGTH_SHORT).show()
 
                 },
                 Response.ErrorListener{ error ->

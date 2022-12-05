@@ -99,19 +99,12 @@
             android:layout_weight="1"
             android:text="Batal" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_save"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Simpan" />-->
-        <de.timonknispel.ktloadingbutton.KTLoadingButton
+        <Button
             android:id="@+id/btn_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:buttonName="Simpan"
-            app:buttonColor="#C8B51B"/>
+            android:text="Simpan" />
     </LinearLayout>
 
     <include

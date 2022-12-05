@@ -92,30 +92,17 @@
         app:layout_constraintVertical_bias="0.0"
         app:rippleColor="@color/biru" />
 
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/btnLogin"-->
-<!--        android:layout_width="116dp"-->
-<!--        android:layout_height="46dp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:text="Login"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/btnReg"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/btnClear"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"-->
-<!--        app:layout_constraintVertical_bias="0.08" />-->
-
-    <de.timonknispel.ktloadingbutton.KTLoadingButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         android:layout_width="116dp"
         android:layout_height="46dp"
-        android:layout_margin="12dp"
-        app:buttonName="Login"
+        android:layout_weight="1"
+        android:text="Login"
         app:layout_constraintBottom_toTopOf="@+id/btnReg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnClear"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        android:layout_weight="1"
-        app:buttonColor="#C8B51B"/>
+        app:layout_constraintVertical_bias="0.08" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnClear"
