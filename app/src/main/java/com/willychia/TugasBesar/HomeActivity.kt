@@ -1,6 +1,7 @@
 package com.willychia.TugasBesar
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -29,7 +30,8 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.movie -> {
-                    changeFragment(FragmentFilm())
+                    val intent = Intent(this@HomeActivity, FragmentFilm::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.profile -> {
