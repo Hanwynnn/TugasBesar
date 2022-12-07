@@ -30,9 +30,7 @@ class FragmentLocation :Fragment(){
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = activity?.getSharedPreferences(myPreference, Context.MODE_PRIVATE)
 
-        binding.buttonLocation.setOnClickListener{
-            val intent = Intent(activity, LocationActivity::class.java)
-            startActivity(intent)
-        }
+        val intent = Intent(activity, LocationActivity::class.java)
+        startActivity(intent)
     }
 }
