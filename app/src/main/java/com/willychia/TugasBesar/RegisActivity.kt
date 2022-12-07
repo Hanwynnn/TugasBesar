@@ -86,7 +86,6 @@ class RegisActivity : AppCompatActivity() {
         createNotificationChannel()
 
         binding.btnReg.setOnClickListener (View.OnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
             val mBundle = Bundle()
             var checkReg: Boolean = false
 //
@@ -102,16 +101,13 @@ class RegisActivity : AppCompatActivity() {
 //            }else{
                 binding.btnReg.startLoading()
                 binding.btnReg.isLoading()
-                intent.putExtra("email", binding.textInputLayoutEmail.getEditText()?.text.toString())
-                intent.putExtra("password", binding.textInputLayoutPassword.getEditText()?.text.toString())
+
 
 //                db.pengunjungDAO().addNotePengunjung(
 //                    NotePengunjung(0, binding.textInputLayoutNama.getEditText()?.text.toString(), binding.btnTgl.text.toString(), binding.textInputLayoutEmail.getEditText()?.text.toString()
 //                        , binding.textInputLayoutPassword.getEditText()?.text.toString(), binding.textInputLayoutnoTelp.getEditText()?.text.toString())
 //                )
                 createPengunjung()
-                sendNotification1()
-                startActivity(intent)
 //            }
 
 
@@ -187,21 +183,25 @@ class RegisActivity : AppCompatActivity() {
                 if(pengunjung != null)
 //                    Toast.makeText(this@RegisActivity, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
                     Toasty.success(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT, true).show()
-
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("email", binding.textInputLayoutEmail.getEditText()?.text.toString())
+                intent.putExtra("password", binding.textInputLayoutPassword.getEditText()?.text.toString())
+                sendNotification1()
+                binding.btnReg.doResult(true)
+                startActivity(intent)
                 createPdf(nama, tgl, noTelp, email, password)
 
-                binding.btnReg.doResult(true)
-                val returnIntent = Intent()
-                setResult(RESULT_OK, returnIntent)
-                finish()
+
             }, Response.ErrorListener { error ->
                 try{
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
                     Toast.makeText(this, errors.getString("message"), Toast.LENGTH_SHORT).show()
+                    binding.btnReg.doResult(false)
                 } catch (e: Exception){
 //                    Toast.makeText(this@RegisActivity, e.message, Toast.LENGTH_SHORT).show()
                     Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
+                    binding.btnReg.doResult(false)
                 }
             }){
                 @Throws(AuthFailureError::class)

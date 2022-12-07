@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +28,8 @@ import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import com.willychia.TugasBesar.databinding.ActivityMainBinding
-
+import kotlinx.android.synthetic.main.rv_item_film.*
+import java.nio.charset.StandardCharsets
 
 
 class MainActivity : AppCompatActivity() {
@@ -185,6 +187,7 @@ class MainActivity : AppCompatActivity() {
                     Toasty.error(this@MainActivity,
                         it, Toast.LENGTH_SHORT, true).show()
                 }
+                binding.btnLogin.doResult(false)
 //                }
             }) {
 
@@ -200,6 +203,7 @@ class MainActivity : AppCompatActivity() {
                 params["password"] = password
                 return params
             }
+
         }
         queue!!.add(stringRequest)
     }
