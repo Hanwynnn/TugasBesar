@@ -142,10 +142,11 @@ class EditFilmActivity : AppCompatActivity() {
                         Toasty.success(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT, true).show()
 
                     binding.btnSave.doResult(true)
-                    val returnIntent = Intent()
-                    setResult(RESULT_OK, returnIntent)
-                    finish()
-
+//                    val returnIntent = Intent()
+//                    setResult(RESULT_OK, returnIntent)
+//                    finish()
+                    val intent = Intent(this, FragmentFilm::class.java)
+                    startActivity(intent)
                     setLoading(false)
                 }, Response.ErrorListener { error ->
                     setLoading(false)
@@ -157,10 +158,13 @@ class EditFilmActivity : AppCompatActivity() {
                             errors.getString("message"),
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding.btnSave.doResult(false)
                     } catch (e: Exception){
 //                    Toast.makeText(this@EditFilmActivity, e.message, Toast.LENGTH_SHORT).show()
                         Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
+                        binding.btnSave.doResult(false)
                     }
+
                 }){
                     @Throws(AuthFailureError::class)
                     override fun getHeaders(): Map<String, String> {

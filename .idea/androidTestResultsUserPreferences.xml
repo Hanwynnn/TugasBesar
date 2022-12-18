@@ -18,6 +18,20 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-1678383302">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="85458be8" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="realme&#10; RMX2061" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-1285365591">
           <value>
             <AndroidTestResultsTableState>
@@ -37,9 +51,11 @@
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
+                  <entry key="85458be8" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_3a_API_27" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="realme&#10; RMX2061" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

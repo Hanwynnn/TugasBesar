@@ -86,8 +86,8 @@ class RegisActivity : AppCompatActivity() {
         createNotificationChannel()
 
         binding.btnReg.setOnClickListener (View.OnClickListener{
-            val mBundle = Bundle()
-            var checkReg: Boolean = false
+//            val mBundle = Bundle()
+//            var checkReg: Boolean = false
 //
 //            if(binding.textInputLayoutEmail.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutPassword.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutNama.getEditText()?.text.toString().isEmpty() || binding.textInputLayoutnoTelp.getEditText()?.text.toString().isEmpty()){
 //                checkReg = false
@@ -188,8 +188,9 @@ class RegisActivity : AppCompatActivity() {
                 intent.putExtra("password", binding.textInputLayoutPassword.getEditText()?.text.toString())
                 sendNotification1()
                 binding.btnReg.doResult(true)
-                startActivity(intent)
                 createPdf(nama, tgl, noTelp, email, password)
+                startActivity(intent)
+
 
 
             }, Response.ErrorListener { error ->
@@ -241,7 +242,7 @@ class RegisActivity : AppCompatActivity() {
     )
     private fun createPdf(nama: String, tglLahir: String, tlp: String, email: String, password: String) {
         val pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
-        val file = File(pdfPath, "pdf_UGD_10705.pdf")
+        val file = File(pdfPath, "pdf_UGD_10705_10820.pdf")
         FileOutputStream(file)
 
         val writer = PdfWriter(file)

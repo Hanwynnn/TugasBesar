@@ -28,9 +28,8 @@ class FragmentLocation :Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = activity?.getSharedPreferences(myPreference, Context.MODE_PRIVATE)
 
-        val intent = Intent(activity, LocationActivity::class.java)
-        startActivity(intent)
+            val intent = Intent(activity, LocationActivity::class.java)
+            startActivity(intent)
     }
 }
