@@ -100,13 +100,12 @@ class EditActivity : AppCompatActivity() {
                 val gson = Gson()
                 var pengunjung = gson.fromJson(response, Film::class.java)
 
-
+                binding.btnUpdate.doResult(true)
                 if(pengunjung != null)
 //                    Toast.makeText(this@EditActivity, "Data berhasil diubah", Toast.LENGTH_SHORT).show()
                     Toasty.success(this, "Data berhasil diubah", Toast.LENGTH_SHORT, true).show()
 
                 val returnIntent = Intent()
-                binding.btnUpdate.doResult(true)
                 setResult(RESULT_OK, returnIntent)
                 finish()
             }, Response.ErrorListener { error ->
@@ -120,7 +119,6 @@ class EditActivity : AppCompatActivity() {
                     ).show()
                 } catch (e: Exception){
                     Toasty.error(this, e.message.toString(), Toast.LENGTH_SHORT, true).show()
-                    binding.btnUpdate.doResult(false)
                 }
             }){
                 @Throws(AuthFailureError::class)
